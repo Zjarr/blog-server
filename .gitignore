@@ -1,0 +1,21 @@
+# Build
+/build
+
+# Vs Code
+/vscode
+*.vscode*
+
+# Node
+/node_modules
+
+# Envitonment
+*.env*
+
+#Sensitive Keys
+*.key*
+
+# Logs
+*.log*
+
+# MacOS
+*.DS_Store*

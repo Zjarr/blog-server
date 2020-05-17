@@ -1,0 +1,84 @@
+version: 2.1
+
+jobs:
+  Build:
+    working_directory: ~/blog-server
+    docker:
+      - image: circleci/node:12.16.3
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Build
+          command: npm run build
+
+  Stage:
+    working_directory: ~/blog-server
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Stage
+          command: git push https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_STAGE}.git master -f
+          
+  Production:
+    working_directory: ~/blog-server
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Production
+          command: git push https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_PRODUCTION}.git master -f
+
+workflows:
+    Build and Deploy:
+      jobs:
+        - Build:
+            filters:
+                tags:
+                    only: /.*/
+                branches:
+                    only: /.*/
+        - Stage Approve:
+            type: approval
+            requires:
+              - Build
+            filters:
+                tags:
+                    only: /Stage\/v\.[0-9]+(\.[0-9]+)*-beta-[0-9]+/
+                branches:
+                    ignore: /.*/
+        - Stage:
+            context: blog-server
+            requires:
+              - Stage Approve
+            filters:
+                tags:
+                    only: /Stage\/v\.[0-9]+(\.[0-9]+)*-beta-[0-9]+/
+                branches:
+                    ignore: /.*/
+        - Production Approve:
+            type: approval
+            requires:
+              - Build
+            filters:
+                tags:
+                    only: /Prod\/v\.[0-9]+(\.[0-9]+)*/
+                branches:
+                    ignore: /.*/
+        - Production:
+            context: blog-server
+            requires:
+              - Production Approve
+            filters:
+                tags:
+                    only: /Prod\/v\.[0-9]+(\.[0-9]+)*/
+                branches:
+                    ignore: /.*/
