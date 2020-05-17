@@ -27,7 +27,7 @@ To get the project running locally:
 	use blog
 	```
 
-- Add a `user` collection
+- Add a `users` collection
 	```
 	db.createCollection('user')
 	```
@@ -42,7 +42,7 @@ To get the project running locally:
 ## Run
 - When all the dependencies are set simply run:
 	```
-	npm start:development
+	npm run start:dev
 	```
 - The project uses an linter to check for common mistakes while coding (unused imports and variables, missing `;`, extra whitespaces, etc.). It will show the location and the warning on the console. Please fix them before pushing your work.
 	- For more info on rules visit: [eslint's rules page](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules)
@@ -53,23 +53,23 @@ To get the project running locally:
         ```
         .
         └── src
-           ├── resolvers
-           │  └── mutations
-           │     └── user
-           │        ├── login.user.mutation.resolver.ts
-           │        └── create.user.mutation.resolver.ts
-           └── schemas
-           .  └── user
-           .     ├── mutation.user.schema.ts
-           .     └── query.user.schema.ts
+           ├── blog
+           │  └── model
+           │     └── base.model.blog.ts
+           │  └── query
+					 │     ├── blog.query.blog.ts
+					 │     └── blogs.model.blog.ts
+           └── category
+           .  └── model
+           .     └── base.model.categoty.ts
         ```
 
 - Folders:
-	- These don't have specific names, use as required but they must be meaningful. For example, if you need an `utils` folder to store common values, use: 
+	- These don't have specific names, use as required but they must be meaningful. For example, if you need an `lib` folder to store common values, use: 
         ```
         .
         └── src
-           ├── utils
+           ├── lib
            .  └── values
            .     ├── days.value.util.ts
            .     └── months.value.util.ts
