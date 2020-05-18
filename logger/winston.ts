@@ -1,7 +1,4 @@
 import Winston from 'winston';
-import { Loggly } from 'winston-loggly-bulk';
-
-import { Env } from '../env';
 
 /**
  * Sets the colors for sertain levels
@@ -28,7 +25,7 @@ const infoOutput = Winston.format.printf(info => {
 });
 
 /**
- * Setting transports. Loggly included
+ * Setting transports.
  */
 const transports = [];
 
@@ -43,17 +40,6 @@ transports.push(
     level: 'debug'
   })
 );
-
-if (Env.LOGGLY_ENABLED === 'true') {
-  transports.push(
-    new Loggly({
-      json: true,
-      subdomain: Env.LOGGLY_SUBDOMAIN,
-      tags: [Env.NODE_ENV],
-      token: Env.LOGGLY_TOKEN,
-    })
-  );
-}
 
 /**
  * Logger creation using to transport types:

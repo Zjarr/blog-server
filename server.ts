@@ -29,11 +29,7 @@ const requiredVars: string[] = [
   'DB_PARAMS',
 
   'JWT_PRIVATE',
-  'JWT_EXPIRE',
-
-  'LOGGLY_ENABLED',
-  'LOGGLY_SUBDOMAIN',
-  'LOGGLY_TOKEN'
+  'JWT_EXPIRE'
 ];
 
 /**

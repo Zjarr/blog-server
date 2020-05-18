@@ -20,9 +20,5 @@ export const Env = {
   DB_PARAMS: process.env.DB_PARAMS,
 
   JWT_PRIVATE: process.env.JWT_PRIVATE,
-  JWT_EXPIRE: process.env.JWT_EXPIRE,
-
-  LOGGLY_ENABLED: process.env.LOGGLY_ENABLED,
-  LOGGLY_SUBDOMAIN: process.env.LOGGLY_SUBDOMAIN,
-  LOGGLY_TOKEN: process.env.LOGGLY_TOKEN
+  JWT_EXPIRE: process.env.JWT_EXPIRE
 };
