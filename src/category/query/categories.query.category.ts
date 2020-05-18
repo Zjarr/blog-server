@@ -1,7 +1,5 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Logger } from '../../../logger';
-
 import { Error } from '../../error/schema';
 import { paginationResult } from '../../lib/functions';
 import { serverError } from '../../lib/values';
@@ -37,8 +35,6 @@ export const categories = async (_: object, args: { categories: GetCategoriesInp
       pagination
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'categories.query.category' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

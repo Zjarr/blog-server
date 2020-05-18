@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Error } from '../../error/schema';
 import { serverError } from '../../lib/values';
 
@@ -36,8 +34,6 @@ export const category = async (_: object, args: { category: GetCategoryInput }):
       category: categoryFound
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'category.query.category' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

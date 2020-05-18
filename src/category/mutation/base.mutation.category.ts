@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
@@ -39,8 +37,6 @@ export const category = async (_: object, args: { category: CategoryInput }, ctx
     };
 
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'category.mutation.category' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };
