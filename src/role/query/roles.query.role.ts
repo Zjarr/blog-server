@@ -1,7 +1,5 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { isAuthorized, paginationResult } from '../../lib/functions';
@@ -45,8 +43,6 @@ export const roles = async (_: object, args: { roles: GetRolesInput }, ctx: Cont
       roles: rolesFound.docs
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'roles.query.role' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

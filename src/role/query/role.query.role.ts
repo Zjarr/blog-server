@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
@@ -45,8 +43,6 @@ export const role = async (_: object, args: { role: GetRoleInput }, ctx: Context
       role: roleResult
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'role.query.role' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };
