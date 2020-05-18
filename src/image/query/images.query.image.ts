@@ -1,7 +1,5 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { isAuthorized, paginationResult } from '../../lib/functions';
@@ -46,8 +44,6 @@ export const images = async (_: object, args: { images: GetImagesInput }, ctx: C
       pagination
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'images.query.image' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

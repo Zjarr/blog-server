@@ -1,7 +1,5 @@
 import { UploadApiResponse } from 'cloudinary';
 
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { AdminAPI, assetsUploadOptions, ImageUploader } from '../../lib/cloud';
@@ -55,8 +53,6 @@ export const image = async (_: object, args: { image: ImageInput }, ctx: Context
     };
 
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'image.mutation.image' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

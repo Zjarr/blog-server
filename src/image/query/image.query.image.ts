@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
@@ -46,8 +44,6 @@ export const image = async (_: object, args: { image: GetImageInput }, ctx: Cont
       image: imageFound
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'image.query.image' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };
