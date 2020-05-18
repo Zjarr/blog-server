@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { RoleModel } from '../../role/model';
 import { Permission, Role } from '../../role/schema';
 import { User } from '../../user/schema';
@@ -19,8 +17,6 @@ export const isAuthorized = async (session: User, permission: Permission, userTo
 
     return roleFound && roleFound.active && roleFound.permissions && roleFound.permissions.includes(permission);
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'is-authorized.function.lib' });
-
     return false;
   }
 };
