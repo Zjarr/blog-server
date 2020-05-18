@@ -9,17 +9,6 @@ import { Logger } from '../logger';
 const mongoURL = `${Env.DB_PROTOCOL}://${Env.DB_USERNAME}:${Env.DB_PASSWORD}@${Env.DB_LOCATION}/${Env.DB_NAME}?${Env.DB_PARAMS}`;
 
 /**
- * MongoDB number of retries and db timeout
- * Attributes for handling a disconnection event
- */
-const dbTimeout = parseInt(Env.DB_CONNECTION_TIMEOUT, 10);
-const MILISECONDS = 1000;
-const numberOfRetries = parseInt(Env.DB_CONNECTION_RETRIES, 10);
-
-let retriesCount = 0;
-let timeout: NodeJS.Timeout;
-
-/**
  * MongoDB connection options
  */
 Mongoose.Promise = global.Promise;
@@ -64,39 +53,11 @@ connection.once('open', () => {
  * the server will try to reconnect to MongoDB
  */
 connection.on('disconnected', () => {
-  if (timeout) {
-    clearTimeout(timeout);
-  }
-
-  if (retriesCount >= numberOfRetries) {
-    Logger.warn(`We were not able to reconnect. Maximun number of connection retries reached (${numberOfRetries})`, {
-      source: 'MongoDB'
-    });
-
-    clearTimeout(timeout);
-    process.exit(0);
-  }
-
-  Logger.warn(`MongoDB disconnected. Trying to connect in ${dbTimeout / MILISECONDS}s`, {
+  Logger.warn(`We had problems with the MongoDB connection. Please restart the server.`, {
     source: 'MongoDB'
   });
 
-  timeout = setTimeout(() => {
-    retriesCount++;
-    Connect();
-  }, dbTimeout);
-});
-
-/**
- * Reconnection Event
- */
-connection.on('reconnected', () => {
-  clearTimeout(timeout);
-  retriesCount = 0;
-
-  Logger.info('MongoDB reconnected', {
-    source: 'MongoDB'
-  });
+  process.exit(0);
 });
 
 /**
