@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Context } from '../../context';
 import { Error } from '../../error/schema';
 import { decrypt, encrypt, isAuthorized } from '../../lib/functions';
@@ -44,8 +42,6 @@ export const password = async (_: object, args: { user: PasswordInput }, ctx: Co
       user: userResult
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'password.mutation.user' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

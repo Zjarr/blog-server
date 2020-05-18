@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Error } from '../../error/schema';
 import { decrypt } from '../../lib/functions';
 import { createJWT } from '../../lib/jwt';
@@ -36,8 +34,6 @@ export const login = async (_: object, args: { user: LoginInput }): Promise<Logi
       token
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'login.mutation.user' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };
