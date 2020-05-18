@@ -53,7 +53,7 @@ connection.once('open', () => {
  * the server will try to reconnect to MongoDB
  */
 connection.on('disconnected', () => {
-  Logger.warn(`We had problems with the MongoDB connection. Please restart the server.`, {
+  Logger.warn(`We had problems connecting to MongoDB. Please restart the server.`, {
     source: 'MongoDB'
   });
 
