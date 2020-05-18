@@ -56,9 +56,9 @@ To get the project running locally:
            ├── blog
            │  └── model
            │     └── base.model.blog.ts
-           │  └── query
-					 │     ├── blog.query.blog.ts
-					 │     └── blogs.model.blog.ts
+           │     └── query
+           │        ├── blog.query.blog.ts
+           │        └── blogs.model.blog.ts
            └── category
            .  └── model
            .     └── base.model.categoty.ts
