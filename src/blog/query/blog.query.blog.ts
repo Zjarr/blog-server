@@ -1,5 +1,3 @@
-import { Logger } from '../../../logger';
-
 import { Error } from '../../error/schema';
 import { serverError } from '../../lib/values';
 
@@ -36,8 +34,6 @@ export const blog = async (_: object, args: { blog: GetBlogInput }): Promise<Blo
       blog: blogFound
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'blog.query.blog' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };

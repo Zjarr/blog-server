@@ -1,7 +1,5 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Logger } from '../../../logger';
-
 import { Error } from '../../error/schema';
 import { paginationResult } from '../../lib/functions';
 import { serverError } from '../../lib/values';
@@ -77,8 +75,6 @@ export const blogs = async (_: object, args: { blogs: GetBlogsInput }): Promise<
       pagination
     };
   } catch (error) {
-    Logger.error('Internal Server Error', { error, file: 'blogs.query.blog' });
-
     return serverError('There was an error with this request. Please try again later');
   }
 };
