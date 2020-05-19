@@ -1,1 +1,3 @@
-export * from './winston';
+import { Logger } from './setup';
+
+export const Log = Logger();
