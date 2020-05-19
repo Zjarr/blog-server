@@ -1,7 +1,7 @@
 import Mongoose from 'mongoose';
 
 import { Env } from '../env';
-import { Logger } from '../logger';
+import { Log } from '../logger';
 
 /**
  * MongoDB server connection string
@@ -25,7 +25,7 @@ const options = {
  * Displays information on the console while connecting to MongoDB
  */
 connection.on('connecting', () => {
-  Logger.info(`Connecting to MongoDB using ${Env.NODE_ENV} configuration`, {
+  Log.info(`Connecting to MongoDB using ${Env.NODE_ENV} configuration`, {
     source: 'MongoDB'
   });
 });
@@ -34,8 +34,9 @@ connection.on('connecting', () => {
  * Displays connection errors on the console if they happen at any moment
  */
 connection.on('error', (error) => {
-  Logger.error(`${error}`, {
-    source: 'MongoDB'
+  Log.error('MongoDB connection error', {
+    source: 'MongoDB',
+    details: error
   });
 });
 
@@ -43,7 +44,7 @@ connection.on('error', (error) => {
  * If the connection is successful it displays the result
  */
 connection.once('open', () => {
-  Logger.info('MongoDB connection established', {
+  Log.info('MongoDB connection established', {
     source: 'MongoDB'
   });
 });
@@ -53,7 +54,7 @@ connection.once('open', () => {
  * the server will try to reconnect to MongoDB
  */
 connection.on('disconnected', () => {
-  Logger.warn(`We had problems connecting to MongoDB. Please restart the server.`, {
+  Log.warn(`We had problems connecting to MongoDB. Please restart the server.`, {
     source: 'MongoDB'
   });
 
@@ -65,7 +66,7 @@ connection.on('disconnected', () => {
  */
 process.on('SIGINT', () => {
   connection.close(() => {
-    Logger.info('MongoDB connection closed', {
+    Log.info('MongoDB connection closed', {
       source: 'MongoDB'
     });
 
