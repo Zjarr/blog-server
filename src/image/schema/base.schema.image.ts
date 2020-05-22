@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export interface Image {
+export interface IImage {
   active: boolean;
   alt: string;
   description?: string;

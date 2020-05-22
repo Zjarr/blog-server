@@ -1,32 +1,32 @@
 import { UploadApiResponse } from 'cloudinary';
 
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { AdminAPI, assetsUploadOptions, ImageUploader } from '../../lib/cloud';
 import { getImageUnique, isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Permission } from '../../role/schema';
+import { IPermission } from '../../role/schema';
 
 import { ImageModel } from '../model';
-import { Image, ImageInput, ImageSuccess } from '../schema';
+import { IImage, IImageInput, IImageSuccess } from '../schema';
 
-export const image = async (_: object, args: { image: ImageInput }, ctx: Context): Promise<ImageSuccess | Error> => {
+export const image = async (_: object, args: { image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
     const { image } = args;
     const { session } = ctx;
     let authorized: boolean;
 
     if (image._id) {
-      authorized = await isAuthorized(session, Permission.UPDATE_ASSET);
+      authorized = await isAuthorized(session, IPermission.UPDATE_ASSET);
     } else {
-      authorized = await isAuthorized(session, Permission.CREATE_ASSET);
+      authorized = await isAuthorized(session, IPermission.CREATE_ASSET);
     }
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
     }
 
-    let imageResult: Image;
+    let imageResult: IImage;
     let uploadResult: UploadApiResponse;
 
     if (image.base64) {
@@ -34,7 +34,7 @@ export const image = async (_: object, args: { image: ImageInput }, ctx: Context
     }
 
     if (image._id) {
-      const updateQuery: ImageInput = image;
+      const updateQuery: IImageInput = image;
 
       if (image.url) {
         const unique = getImageUnique(image.url, assetsUploadOptions.folder);

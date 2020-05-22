@@ -1,21 +1,21 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized, paginationResult } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Pagination } from '../../pagination/schema';
-import { Permission } from '../../role/schema';
+import { IPagination } from '../../pagination/schema';
+import { IPermission } from '../../role/schema';
 
 import { ImageModel } from '../model';
-import { GetImagesInput, Image, ImagesSuccess } from '../schema';
+import { IGetImagesInput, IImage, IImagesSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   active?: boolean;
 }
 
-const createSearchQuery = (query: GetImagesInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetImagesInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { active } = query;
 
   if (active) {
@@ -25,10 +25,10 @@ const createSearchQuery = (query: GetImagesInput): SearchQuery => {
   return searchQuery;
 };
 
-export const images = async (_: object, args: { images: GetImagesInput }, ctx: Context): Promise<ImagesSuccess | Error> => {
+export const images = async (_: object, args: { images: IGetImagesInput }, ctx: IContext): Promise<IImagesSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, Permission.VIEW_ASSET);
+    const authorized = await isAuthorized(session, IPermission.VIEW_ASSET);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
@@ -36,8 +36,8 @@ export const images = async (_: object, args: { images: GetImagesInput }, ctx: C
 
     const { images } = args;
     const searchQuery = createSearchQuery(images);
-    const imagesFound: PaginateResult<Image & Document> = await ImageModel.paginate(searchQuery, { ...images.pagination });
-    const pagination: Pagination = paginationResult(imagesFound);
+    const imagesFound: PaginateResult<IImage & Document> = await ImageModel.paginate(searchQuery, { ...images.pagination });
+    const pagination: IPagination = paginationResult(imagesFound);
 
     return {
       images: imagesFound.docs,

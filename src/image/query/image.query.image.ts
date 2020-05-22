@@ -1,19 +1,19 @@
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Permission } from '../../role/schema';
+import { IPermission } from '../../role/schema';
 
 import { ImageModel } from '../model';
-import { GetImageInput, Image, ImageSuccess } from '../schema';
+import { IGetImageInput, IImage, IImageSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   _id?: string;
   url?: string;
 }
 
-const createSearchQuery = (query: GetImageInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetImageInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { _id, url } = query;
 
   if (_id) {
@@ -27,18 +27,18 @@ const createSearchQuery = (query: GetImageInput): SearchQuery => {
   return searchQuery;
 };
 
-export const image = async (_: object, args: { image: GetImageInput }, ctx: Context): Promise<ImageSuccess | Error> => {
+export const image = async (_: object, args: { image: IGetImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, Permission.VIEW_ASSET);
+    const authorized = await isAuthorized(session, IPermission.VIEW_ASSET);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
     }
 
     const { image } = args;
-    const searchQuery: SearchQuery = createSearchQuery(image);
-    const imageFound: Image = await ImageModel.findOne(searchQuery);
+    const searchQuery: ISearchQuery = createSearchQuery(image);
+    const imageFound: IImage = await ImageModel.findOne(searchQuery);
 
     return {
       image: imageFound
