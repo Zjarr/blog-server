@@ -1,21 +1,21 @@
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
 
 import { RoleModel } from '../model';
-import { Permission, Role, RoleInput, RoleSuccess } from '../schema';
+import { IPermission, IRole, IRoleInput, IRoleSuccess } from '../schema';
 
-export const role = async (_: object, args: { role: RoleInput }, ctx: Context): Promise<RoleSuccess | Error> => {
+export const role = async (_: object, args: { role: IRoleInput }, ctx: IContext): Promise<IRoleSuccess | IError> => {
   try {
     const { role } = args;
     const { session } = ctx;
     let authorized: boolean;
 
     if (role._id) {
-      authorized = await isAuthorized(session, Permission.UPDATE_ROLE);
+      authorized = await isAuthorized(session, IPermission.UPDATE_ROLE);
     } else {
-      authorized = await isAuthorized(session, Permission.CREATE_ROLE);
+      authorized = await isAuthorized(session, IPermission.CREATE_ROLE);
     }
 
     if (!authorized) {
@@ -23,7 +23,7 @@ export const role = async (_: object, args: { role: RoleInput }, ctx: Context): 
     }
 
     const formatedName = role.name.trim().toLowerCase();
-    let roleResult: Role;
+    let roleResult: IRole;
 
     if (role._id) {
       roleResult = await RoleModel.findByIdAndUpdate(role._id, {...role, name: formatedName}, { new: true });

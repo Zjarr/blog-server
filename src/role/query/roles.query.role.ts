@@ -1,20 +1,20 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized, paginationResult } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
 import { RoleModel } from '../model';
-import { GetRolesInput, Permission, Role, RolesSuccess } from '../schema';
+import { IGetRolesInput, IPermission, IRole, IRolesSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   active?: boolean;
 }
 
-const createSearchQuery = (query: GetRolesInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetRolesInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { active } = query;
 
   if (active) {
@@ -24,19 +24,19 @@ const createSearchQuery = (query: GetRolesInput): SearchQuery => {
   return searchQuery;
 };
 
-export const roles = async (_: object, args: { roles: GetRolesInput }, ctx: Context): Promise<RolesSuccess | Error> => {
+export const roles = async (_: object, args: { roles: IGetRolesInput }, ctx: IContext): Promise<IRolesSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, Permission.VIEW_ROLE);
+    const authorized = await isAuthorized(session, IPermission.VIEW_ROLE);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
     }
 
     const { roles } = args;
-    const searchQuery: SearchQuery = createSearchQuery(roles);
-    const rolesFound: PaginateResult<Role & Document> = await RoleModel.paginate(searchQuery, { ...roles.pagination });
-    const pagination: Pagination = paginationResult(rolesFound);
+    const searchQuery: ISearchQuery = createSearchQuery(roles);
+    const rolesFound: PaginateResult<IRole & Document> = await RoleModel.paginate(searchQuery, { ...roles.pagination });
+    const pagination: IPagination = paginationResult(rolesFound);
 
     return {
       pagination,

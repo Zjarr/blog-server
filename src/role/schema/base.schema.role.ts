@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export enum Permission {
+export enum IPermission {
   CREATE_ASSET = 'CREATE_ASSET',
   CREATE_BLOG = 'CREATE_BLOG',
   CREATE_CATEGORY = 'CREATE_CATEGORY',
@@ -16,11 +16,11 @@ export enum Permission {
   VIEW_USER = 'VIEW_USER'
 }
 
-export interface Role {
+export interface IRole {
   active: boolean;
   description: string;
   name: string;
-  permissions: Permission[];
+  permissions: IPermission[];
 }
 
 export const BaseSchemaRole = gql`

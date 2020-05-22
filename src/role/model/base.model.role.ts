@@ -1,7 +1,7 @@
 import { Document, model, PaginateModel, Schema } from 'mongoose';
 import MongoosePaginate from 'mongoose-paginate-v2';
 
-import { Permission, Role } from '../../role/schema';
+import { IPermission, IRole } from '../../role/schema';
 
 export const RoleSchema = new Schema({
   active: {
@@ -23,19 +23,19 @@ export const RoleSchema = new Schema({
 
   permissions: [{
     enum: [
-      Permission.CREATE_ASSET,
-      Permission.CREATE_BLOG,
-      Permission.CREATE_CATEGORY,
-      Permission.CREATE_ROLE,
-      Permission.CREATE_USER,
-      Permission.UPDATE_ASSET,
-      Permission.UPDATE_BLOG,
-      Permission.UPDATE_CATEGORY,
-      Permission.UPDATE_ROLE,
-      Permission.UPDATE_USER,
-      Permission.VIEW_ASSET,
-      Permission.VIEW_ROLE,
-      Permission.VIEW_USER
+      IPermission.CREATE_ASSET,
+      IPermission.CREATE_BLOG,
+      IPermission.CREATE_CATEGORY,
+      IPermission.CREATE_ROLE,
+      IPermission.CREATE_USER,
+      IPermission.UPDATE_ASSET,
+      IPermission.UPDATE_BLOG,
+      IPermission.UPDATE_CATEGORY,
+      IPermission.UPDATE_ROLE,
+      IPermission.UPDATE_USER,
+      IPermission.VIEW_ASSET,
+      IPermission.VIEW_ROLE,
+      IPermission.VIEW_USER
     ],
     required: true,
     type: String
@@ -44,6 +44,6 @@ export const RoleSchema = new Schema({
 
 RoleSchema.plugin(MongoosePaginate);
 
-interface RoleModel<T extends Document> extends PaginateModel<T> {};
+interface IRoleModel<T extends Document> extends PaginateModel<T> {};
 
-export const RoleModel = model<Role & Document>('Role', RoleSchema) as RoleModel<Role & Document>;
+export const RoleModel = model<IRole & Document>('Role', RoleSchema) as IRoleModel<IRole & Document>;
