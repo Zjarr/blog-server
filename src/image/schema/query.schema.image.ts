@@ -1,17 +1,17 @@
 import { gql } from 'apollo-server-express';
 
-import { PaginationInput } from '../../pagination/schema';
+import { IPaginationInput } from '../../pagination/schema';
 
-export interface GetImageInput {
+export interface IGetImageInput {
   _id?: string;
   url?: string;
 }
 
-export interface GetImagesInput {
+export interface IGetImagesInput {
   active?: boolean;
   after?: string;
   before?: string;
-  pagination: PaginationInput;
+  pagination: IPaginationInput;
 }
 
 export const QuerySchemaImage = gql`

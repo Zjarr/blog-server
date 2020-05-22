@@ -1,16 +1,16 @@
 import { gql } from 'apollo-server-express';
 
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
-import { Image } from './base.schema.image';
+import { IImage } from './base.schema.image';
 
-export interface ImageSuccess {
-  image: Image;
+export interface IImageSuccess {
+  image: IImage;
 }
 
-export interface ImagesSuccess {
-  images: Image[];
-  pagination: Pagination;
+export interface IImagesSuccess {
+  images: IImage[];
+  pagination: IPagination;
 }
 
 export const UnionSchemaImage = gql`
