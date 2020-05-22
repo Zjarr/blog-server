@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken';
 
 import { Env } from '../../../env';
 
-import { User } from '../../user/schema';
+import { IUser } from '../../user/schema';
 
-export const verifyJWT = (authorization: string): User | null => {
+export const verifyJWT = (authorization: string): IUser | null => {
   const tokenWithBearer = authorization || '';
   const token = tokenWithBearer.split(' ')[1];
 
@@ -13,7 +13,7 @@ export const verifyJWT = (authorization: string): User | null => {
       return null;
     }
 
-    return jwt.verify(token, Env.JWT_PRIVATE) as User;
+    return jwt.verify(token, Env.JWT_PRIVATE) as IUser;
   } catch (error) {
     return null;
   }

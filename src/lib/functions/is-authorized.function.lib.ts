@@ -1,8 +1,8 @@
 import { RoleModel } from '../../role/model';
-import { Permission, Role } from '../../role/schema';
-import { User } from '../../user/schema';
+import { IPermission, IRole } from '../../role/schema';
+import { IUser } from '../../user/schema';
 
-export const isAuthorized = async (session: User, permission: Permission, userToUpdateId: string = null): Promise<boolean> => {
+export const isAuthorized = async (session: IUser, permission: IPermission, userToUpdateId: string = null): Promise<boolean> => {
   try {
     if (!session) {
       return false;
@@ -13,7 +13,7 @@ export const isAuthorized = async (session: User, permission: Permission, userTo
       return true;
     }
 
-    const roleFound: Role = await RoleModel.findById(session.role);
+    const roleFound: IRole = await RoleModel.findById(session.role);
 
     return roleFound && roleFound.active && roleFound.permissions && roleFound.permissions.includes(permission);
   } catch (error) {

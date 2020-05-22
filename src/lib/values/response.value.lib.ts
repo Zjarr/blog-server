@@ -1,4 +1,4 @@
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 
 const codes = {
   // 4xx Client error
@@ -11,7 +11,7 @@ const codes = {
   500: { code: 500, status: 'Internal Server Error' },
 };
 
-const formatError = (error: { status: string; code: number }, message?: string): Error => {
+const formatError = (error: { status: string; code: number }, message?: string): IError => {
   return {
     error: {
       status: error.status,
@@ -21,22 +21,22 @@ const formatError = (error: { status: string; code: number }, message?: string):
   };
 };
 
-export const unauthorized = (message?: string): Error => formatError(
+export const unauthorized = (message?: string): IError => formatError(
   codes['401'],
   message
 );
 
-export const forbidden = (message?: string): Error => formatError(
+export const forbidden = (message?: string): IError => formatError(
   codes['403'],
   message
 );
 
-export const notFound = (message?: string): Error => formatError(
+export const notFound = (message?: string): IError => formatError(
   codes['404'],
   message
 );
 
-export const serverError = (message?: string): Error => formatError(
+export const serverError = (message?: string): IError => formatError(
   codes['500'],
   message
 );
