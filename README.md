@@ -71,8 +71,8 @@ To get the project running locally:
         └── src
            ├── lib
            .  └── values
-           .     ├── days.value.util.ts
-           .     └── months.value.util.ts
+           .     ├── days.values.lib.ts
+           .     └── months.values.lib.ts
         ```
 
 - Branches:
