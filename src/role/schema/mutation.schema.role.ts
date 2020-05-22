@@ -1,13 +1,13 @@
 import { gql } from 'apollo-server-express';
 
-import { Permission } from './base.schema.role';
+import { IPermission } from './base.schema.role';
 
-export interface RoleInput {
+export interface IRoleInput {
   _id?: string;
   active: boolean;
   description: string;
   name: string;
-  permissions: Permission[];
+  permissions: IPermission[];
 }
 
 export const MutationSchemaRole = gql`

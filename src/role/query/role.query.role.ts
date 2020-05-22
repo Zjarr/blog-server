@@ -1,18 +1,18 @@
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
 
 import { RoleModel } from '../model';
-import { GetRoleInput, Permission, Role, RoleSuccess } from '../schema';
+import { IGetRoleInput, IPermission, IRole, IRoleSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   _id?: string;
   name?: string;
 }
 
-const createSearchQuery = (query: GetRoleInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetRoleInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { _id, name } = query;
 
   if (_id) {
@@ -26,10 +26,10 @@ const createSearchQuery = (query: GetRoleInput): SearchQuery => {
   return searchQuery;
 };
 
-export const role = async (_: object, args: { role: GetRoleInput }, ctx: Context): Promise<RoleSuccess | Error> => {
+export const role = async (_: object, args: { role: IGetRoleInput }, ctx: IContext): Promise<IRoleSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, Permission.VIEW_ROLE);
+    const authorized = await isAuthorized(session, IPermission.VIEW_ROLE);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
@@ -37,7 +37,7 @@ export const role = async (_: object, args: { role: GetRoleInput }, ctx: Context
 
     const { role } = args;
     const searchQuery = createSearchQuery(role);
-    const roleResult: Role = await RoleModel.findOne(searchQuery);
+    const roleResult: IRole = await RoleModel.findOne(searchQuery);
 
     return {
       role: roleResult

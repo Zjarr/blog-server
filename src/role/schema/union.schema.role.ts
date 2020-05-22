@@ -1,15 +1,15 @@
 import { gql } from 'apollo-server-express';
 
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
-import { Role } from './base.schema.role';
+import { IRole } from './base.schema.role';
 
-export interface RoleSuccess {
-  role: Role;
+export interface IRoleSuccess {
+  role: IRole;
 }
-export interface RolesSuccess {
-  pagination: Pagination;
-  roles: Role[];
+export interface IRolesSuccess {
+  pagination: IPagination;
+  roles: IRole[];
 }
 
 export const UnionSchemaRole = gql`
