@@ -1,19 +1,19 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { paginationResult } from '../../lib/functions';
 import { serverError } from '../../lib/values';
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
 import { CategoryModel } from '../model';
-import { CategoriesSuccess, Category, GetCategoriesInput } from '../schema';
+import { ICategoriesSuccess, ICategory, IGetCategoriesInput } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   active?: boolean;
 }
 
-const createSearchQuery = (query: GetCategoriesInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetCategoriesInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { active } = query;
 
   if (active) {
@@ -23,12 +23,12 @@ const createSearchQuery = (query: GetCategoriesInput): SearchQuery => {
   return searchQuery;
 };
 
-export const categories = async (_: object, args: { categories: GetCategoriesInput }): Promise<CategoriesSuccess | Error> => {
+export const categories = async (_: object, args: { categories: IGetCategoriesInput }): Promise<ICategoriesSuccess | IError> => {
   try {
     const { categories } = args;
-    const searchQuery: SearchQuery = createSearchQuery(categories);
-    const categoriesFound: PaginateResult<Category & Document> = await CategoryModel.paginate(searchQuery, { ...categories.pagination });
-    const pagination: Pagination = paginationResult(categoriesFound);
+    const searchQuery: ISearchQuery = createSearchQuery(categories);
+    const categoriesFound: PaginateResult<ICategory & Document> = await CategoryModel.paginate(searchQuery, { ...categories.pagination });
+    const pagination: IPagination = paginationResult(categoriesFound);
 
     return {
       categories: categoriesFound.docs,

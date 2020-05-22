@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export interface CategoryInput {
+export interface ICategoryInput {
   _id?: string;
   active: boolean;
   description?: string;

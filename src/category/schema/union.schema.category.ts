@@ -1,15 +1,15 @@
 import { gql } from 'apollo-server-express';
 
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
-import { Category } from './base.schema.category';
+import { ICategory } from './base.schema.category';
 
-export interface CategoriesSuccess {
-  categories: Category[];
-  pagination: Pagination;
+export interface ICategoriesSuccess {
+  categories: ICategory[];
+  pagination: IPagination;
 }
-export interface CategorySuccess {
-  category: Category;
+export interface ICategorySuccess {
+  category: ICategory;
 }
 
 export const UnionSchemaCategory = gql`

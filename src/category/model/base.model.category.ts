@@ -1,7 +1,7 @@
 import { Document, model, PaginateModel, Schema } from 'mongoose';
 import MongoosePaginate from 'mongoose-paginate-v2';
 
-import { Category } from '../../category/schema';
+import { ICategory } from '../../category/schema';
 
 export const CategorySchema = new Schema({
   active: {
@@ -29,6 +29,6 @@ export const CategorySchema = new Schema({
 
 CategorySchema.plugin(MongoosePaginate);
 
-interface CategoryModel<T extends Document> extends PaginateModel<T> {};
+interface ICategoryModel<T extends Document> extends PaginateModel<T> {};
 
-export const CategoryModel = model<Category & Document>('Category', CategorySchema) as CategoryModel<Category & Document>;
+export const CategoryModel = model<ICategory & Document>('Category', CategorySchema) as ICategoryModel<ICategory & Document>;

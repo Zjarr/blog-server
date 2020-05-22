@@ -1,22 +1,22 @@
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Permission } from '../../role/schema';
+import { IPermission } from '../../role/schema';
 
 import { CategoryModel } from '../model';
-import { Category, CategoryInput, CategorySuccess } from '../schema';
+import { ICategory, ICategoryInput, ICategorySuccess } from '../schema';
 
-export const category = async (_: object, args: { category: CategoryInput }, ctx: Context): Promise<CategorySuccess | Error> => {
+export const category = async (_: object, args: { category: ICategoryInput }, ctx: IContext): Promise<ICategorySuccess | IError> => {
   try {
     const { category } = args;
     const { session } = ctx;
     let authorized: boolean;
 
     if (category._id) {
-      authorized = await isAuthorized(session, Permission.UPDATE_CATEGORY);
+      authorized = await isAuthorized(session, IPermission.UPDATE_CATEGORY);
     } else {
-      authorized = await isAuthorized(session, Permission.CREATE_CATEGORY);
+      authorized = await isAuthorized(session, IPermission.CREATE_CATEGORY);
     }
 
     if (!authorized) {
@@ -24,7 +24,7 @@ export const category = async (_: object, args: { category: CategoryInput }, ctx
     }
 
     const formatedName = category.name.trim().toLowerCase();
-    let categoryResult: Category;
+    let categoryResult: ICategory;
 
     if (category._id) {
       categoryResult = await CategoryModel.findByIdAndUpdate(category._id, category, { new: true });

@@ -1,13 +1,13 @@
 import { gql } from 'apollo-server-express';
 
-import { PaginationInput } from '../../pagination/schema';
+import { IPaginationInput } from '../../pagination/schema';
 
-export interface GetCategoriesInput {
+export interface IGetCategoriesInput {
   active?: boolean;
-  pagination: PaginationInput;
+  pagination: IPaginationInput;
 }
 
-export interface GetCategoryInput {
+export interface IGetCategoryInput {
   _id?: string;
   name?: string;
 }
