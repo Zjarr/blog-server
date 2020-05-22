@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export interface System {
+export interface ISystem {
   version: string;
 }
 
