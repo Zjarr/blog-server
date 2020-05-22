@@ -1,29 +1,29 @@
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { decrypt, encrypt, isAuthorized } from '../../lib/functions';
 import { forbidden, notFound, serverError, unauthorized } from '../../lib/values';
-import { Permission } from '../../role/schema';
+import { IPermission } from '../../role/schema';
 
 import { UserModel } from '../model';
-import { PasswordInput, User, UserSuccess } from '../schema';
+import { IPasswordInput, IUser, IUserSuccess } from '../schema';
 
-export const password = async (_: object, args: { user: PasswordInput }, ctx: Context): Promise<UserSuccess | Error> => {
+export const password = async (_: object, args: { user: IPasswordInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
     const { session } = ctx;
     const { user } = args;
     let authorized: boolean;
 
     if (user._id) {
-      authorized = await isAuthorized(session, Permission.UPDATE_USER, user._id);
+      authorized = await isAuthorized(session, IPermission.UPDATE_USER, user._id);
     } else {
-      authorized = await isAuthorized(session, Permission.CREATE_USER);
+      authorized = await isAuthorized(session, IPermission.CREATE_USER);
     }
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const userFound: User = await UserModel.findById(user._id);
+    const userFound: IUser = await UserModel.findById(user._id);
 
     if (!userFound) {
       return notFound('User does not exist');
@@ -36,7 +36,7 @@ export const password = async (_: object, args: { user: PasswordInput }, ctx: Co
     }
 
     const password: string = encrypt(user.new);
-    const userResult: User = await UserModel.findByIdAndUpdate(userFound._id, { password }, { new: true });
+    const userResult: IUser = await UserModel.findByIdAndUpdate(userFound._id, { password }, { new: true });
 
     return {
       user: userResult

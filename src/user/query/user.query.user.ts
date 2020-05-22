@@ -1,16 +1,16 @@
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { serverError } from '../../lib/values';
 
 import { UserModel } from '../model';
-import { GetUserInput, User, UserSuccess } from '../schema';
+import { IGetUserInput, IUser, IUserSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   _id?: string;
   email?: string;
 }
 
-const createSearchQuery = (query: GetUserInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetUserInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { _id, email } = query;
 
   if (_id) {
@@ -24,11 +24,11 @@ const createSearchQuery = (query: GetUserInput): SearchQuery => {
   return searchQuery;
 };
 
-export const user = async (_: object, args: { user: GetUserInput }): Promise<UserSuccess | Error> => {
+export const user = async (_: object, args: { user: IGetUserInput }): Promise<IUserSuccess | IError> => {
   try {
     const { user } = args;
-    const searchQuery: SearchQuery = createSearchQuery(user);
-    const userResult: User = await UserModel.findOne(searchQuery);
+    const searchQuery: ISearchQuery = createSearchQuery(user);
+    const userResult: IUser = await UserModel.findOne(searchQuery);
 
     return {
       user: userResult

@@ -1,21 +1,21 @@
 import { gql } from 'apollo-server-express';
 
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
-import { User } from './base.schema.user';
+import { IUser } from './base.schema.user';
 
-export interface LoginSuccess {
+export interface ILoginSuccess {
   token: string;
-  user: User;
+  user: IUser;
 }
 
-export interface UserSuccess {
-  user: User;
+export interface IUserSuccess {
+  user: IUser;
 }
 
-export interface UsersSuccess {
-  pagination: Pagination;
-  users: User[];
+export interface IUsersSuccess {
+  pagination: IPagination;
+  users: IUser[];
 }
 
 export const UnionSchemaUser = gql`

@@ -1,21 +1,21 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized, paginationResult } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Pagination } from '../../pagination/schema';
-import { Permission } from '../../role/schema';
+import { IPagination } from '../../pagination/schema';
+import { IPermission } from '../../role/schema';
 
 import { UserModel } from '../model';
-import { GetUsersInput, User, UsersSuccess } from '../schema';
+import { IGetUsersInput, IUser, IUsersSuccess } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   active?: boolean;
 }
 
-const createSearchQuery = (query: GetUsersInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetUsersInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { active } = query;
 
   if (active) {
@@ -25,19 +25,19 @@ const createSearchQuery = (query: GetUsersInput): SearchQuery => {
   return searchQuery;
 };
 
-export const users = async (_: object, args: { users: GetUsersInput }, ctx: Context): Promise<UsersSuccess | Error> => {
+export const users = async (_: object, args: { users: IGetUsersInput }, ctx: IContext): Promise<IUsersSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, Permission.VIEW_USER);
+    const authorized = await isAuthorized(session, IPermission.VIEW_USER);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
     }
 
     const { users } = args;
-    const searchQuery: SearchQuery = createSearchQuery(users);
-    const usersFound: PaginateResult<User & Document> = await UserModel.paginate(searchQuery, { ...users.pagination });
-    const pagination: Pagination = paginationResult(usersFound);
+    const searchQuery: ISearchQuery = createSearchQuery(users);
+    const usersFound: PaginateResult<IUser & Document> = await UserModel.paginate(searchQuery, { ...users.pagination });
+    const pagination: IPagination = paginationResult(usersFound);
 
     return {
       pagination,

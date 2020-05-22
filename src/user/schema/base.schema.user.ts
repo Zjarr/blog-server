@@ -1,8 +1,8 @@
 import { gql } from 'apollo-server-express';
 
-import { Social } from '../../social/schema';
+import { ISocial } from '../../social/schema';
 
-export interface User {
+export interface IUser {
   _id?: string;
   about: string;
   active: boolean;
@@ -13,7 +13,7 @@ export interface User {
   password: string;
   picture?: string;
   role: string;
-  social?: Social[];
+  social?: ISocial[];
 }
 
 export const BaseSchemaUser = gql`
