@@ -1,11 +1,11 @@
 import { gql } from 'apollo-server-express';
 
-export interface PaginationInput {
+export interface IPaginationInput {
   limit: number;
   page: number;
 }
 
-export interface Pagination {
+export interface IPagination {
   limit: number;
   next: boolean;
   page: number;
