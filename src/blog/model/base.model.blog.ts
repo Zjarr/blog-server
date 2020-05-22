@@ -3,7 +3,7 @@ import MongoosePaginate from 'mongoose-paginate-v2';
 
 import { SourceSchema } from '../../source/model';
 
-import { Blog } from '../schema';
+import { IBlog } from '../schema';
 
 export const BlogSchema = new Schema({
   active: {
@@ -73,6 +73,6 @@ export const BlogSchema = new Schema({
 
 BlogSchema.plugin(MongoosePaginate);
 
-interface BlogModel<T extends Document> extends PaginateModel<T> {};
+interface IBlogModel<T extends Document> extends PaginateModel<T> {};
 
-export const BlogModel = model<Blog & Document>('blog', BlogSchema) as BlogModel<Blog & Document>;
+export const BlogModel = model<IBlog & Document>('blog', BlogSchema) as IBlogModel<IBlog & Document>;

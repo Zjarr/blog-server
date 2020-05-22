@@ -1,16 +1,16 @@
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { serverError } from '../../lib/values';
 
 import { BlogModel } from '../model';
-import { Blog, BlogSuccess, GetBlogInput } from '../schema';
+import { IBlog, IBlogSuccess, IGetBlogInput } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   _id?: string;
   slug?: string;
 }
 
-const createSearchQuery = (query: GetBlogInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetBlogInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { _id, slug } = query;
 
   if (_id) {
@@ -24,11 +24,11 @@ const createSearchQuery = (query: GetBlogInput): SearchQuery => {
   return searchQuery;
 };
 
-export const blog = async (_: object, args: { blog: GetBlogInput }): Promise<BlogSuccess | Error> => {
+export const blog = async (_: object, args: { blog: IGetBlogInput }): Promise<IBlogSuccess | IError> => {
   try {
     const { blog } = args;
-    const searchQuery: SearchQuery = createSearchQuery(blog);
-    const blogFound: Blog = await BlogModel.findOne(searchQuery);
+    const searchQuery: ISearchQuery = createSearchQuery(blog);
+    const blogFound: IBlog = await BlogModel.findOne(searchQuery);
 
     return {
       blog: blogFound

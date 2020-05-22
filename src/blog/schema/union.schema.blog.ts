@@ -1,16 +1,16 @@
 import { gql } from 'apollo-server-express';
 
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
-import { Blog } from './base.schema.blog';
+import { IBlog } from './base.schema.blog';
 
-export interface BlogSuccess {
-  blog: Blog;
+export interface IBlogSuccess {
+  blog: IBlog;
 }
 
-export interface BlogsSuccess {
-  blogs: Blog[];
-  pagination: Pagination;
+export interface IBlogsSuccess {
+  blogs: IBlog[];
+  pagination: IPagination;
 }
 
 export const UnionSchemaBlog = gql`

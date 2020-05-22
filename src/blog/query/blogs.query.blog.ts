@@ -1,14 +1,14 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { paginationResult } from '../../lib/functions';
 import { serverError } from '../../lib/values';
-import { Pagination } from '../../pagination/schema';
+import { IPagination } from '../../pagination/schema';
 
 import { BlogModel } from '../model';
-import { Blog, BlogsSuccess, GetBlogsInput } from '../schema';
+import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   active?: boolean;
   author?: string;
   categories?: {
@@ -23,9 +23,9 @@ interface SearchQuery {
   };
 }
 
-const createSearchQuery = (query: GetBlogsInput): SearchQuery => {
+const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
   const { active, author, after, before, categories, keywords } = query;
-  const searchQuery: SearchQuery = { };
+  const searchQuery: ISearchQuery = { };
 
   if (active) {
     searchQuery.active = active;
@@ -63,12 +63,12 @@ const createSearchQuery = (query: GetBlogsInput): SearchQuery => {
   return searchQuery;
 };
 
-export const blogs = async (_: object, args: { blogs: GetBlogsInput }): Promise<BlogsSuccess | Error> => {
+export const blogs = async (_: object, args: { blogs: IGetBlogsInput }): Promise<IBlogsSuccess | IError> => {
   try {
     const { blogs } = args;
-    const searchQuery: SearchQuery = createSearchQuery(blogs);
-    const blogsFound: PaginateResult<Blog & Document> = await BlogModel.paginate(searchQuery, { ...blogs.pagination });
-    const pagination: Pagination = paginationResult(blogsFound);
+    const searchQuery: ISearchQuery = createSearchQuery(blogs);
+    const blogsFound: PaginateResult<IBlog & Document> = await BlogModel.paginate(searchQuery, { ...blogs.pagination });
+    const pagination: IPagination = paginationResult(blogsFound);
 
     return {
       blogs: blogsFound.docs,

@@ -1,20 +1,20 @@
 import { gql } from 'apollo-server-express';
 
-import { PaginationInput } from '../../pagination/schema';
+import { IPaginationInput } from '../../pagination/schema';
 
-export interface GetBlogInput {
+export interface IGetBlogInput {
   _id?: string;
   slug?: string;
 }
 
-export interface GetBlogsInput {
+export interface IGetBlogsInput {
   active?: boolean;
   after?: string;
   author?: string;
   before?: string;
   categories?: string[];
   keywords?: string[];
-  pagination: PaginationInput;
+  pagination: IPaginationInput;
 }
 
 export const QuerySchemaBlog = gql`
