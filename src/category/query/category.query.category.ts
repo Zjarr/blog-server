@@ -1,16 +1,16 @@
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { serverError } from '../../lib/values';
 
 import { CategoryModel } from '../model';
-import { Category, CategorySuccess, GetCategoryInput } from '../schema';
+import { ICategory, ICategorySuccess, IGetCategoryInput } from '../schema';
 
-interface SearchQuery {
+interface ISearchQuery {
   _id?: string;
   name?: string;
 }
 
-const createSearchQuery = (query: GetCategoryInput): SearchQuery => {
-  const searchQuery: SearchQuery = { };
+const createSearchQuery = (query: IGetCategoryInput): ISearchQuery => {
+  const searchQuery: ISearchQuery = { };
   const { _id, name } = query;
 
   if (_id) {
@@ -24,11 +24,11 @@ const createSearchQuery = (query: GetCategoryInput): SearchQuery => {
   return searchQuery;
 };
 
-export const category = async (_: object, args: { category: GetCategoryInput }): Promise<CategorySuccess | Error> => {
+export const category = async (_: object, args: { category: IGetCategoryInput }): Promise<ICategorySuccess | IError> => {
   try {
     const { category } = args;
     const searchQuery = createSearchQuery(category);
-    const categoryFound: Category = await CategoryModel.findOne(searchQuery);
+    const categoryFound: ICategory = await CategoryModel.findOne(searchQuery);
 
     return {
       category: categoryFound
