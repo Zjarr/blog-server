@@ -20,15 +20,6 @@
 				"default": "array-simple"
 			}
 		],
-		"@typescript-eslint/camelcase": [
-			"error",
-			{
-				"properties": "never",
-				"allow": [
-					"^[A-Za-z][a-zA-Za-z]+_[A-Za-z]+$"
-				]
-			}
-		],
 		"@typescript-eslint/comma-spacing": [
 			"error"
 		],
@@ -37,6 +28,33 @@
 			"interface"
 		],
 		"@typescript-eslint/explicit-function-return-type": "error",
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "variable",
+				"format": ["camelCase", "PascalCase"],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "parameter",
+				"format": ["camelCase"],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "enumMember",
+				"format": ["UPPER_CASE"],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"custom": {
+					"regex": "^I[A-Z][a-z]+(?:[A-Z][a-z]+)*$",
+					"match": true
+				},
+				"leadingUnderscore": "allow"
+			}
+		],
 		"@typescript-eslint/no-explicit-any": "error",
 		"@typescript-eslint/no-extra-parens": [
 			"error"
@@ -81,7 +99,6 @@
 				"allowSingleLine": true
 			}
 		],
-		"camelcase": "off",
 		"comma-spacing": "off",
 		"constructor-super": "error",
 		"curly": [
