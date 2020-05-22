@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export interface Social {
+export interface ISocial {
   icon: string;
   name: string;
   url: string;
