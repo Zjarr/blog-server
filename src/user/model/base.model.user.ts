@@ -3,7 +3,7 @@ import MongoosePaginate from 'mongoose-paginate-v2';
 
 import { SocialSchema } from '../../social/model';
 
-import { User } from '../schema';
+import { IUser } from '../schema';
 
 export const UserSchema = new Schema({
   about: {
@@ -62,6 +62,6 @@ export const UserSchema = new Schema({
 
 UserSchema.plugin(MongoosePaginate);
 
-interface UserModel<T extends Document> extends PaginateModel<T> {};
+interface IUserModel<T extends Document> extends PaginateModel<T> {};
 
-export const UserModel = model<User & Document>('user', UserSchema) as UserModel<User & Document>;
+export const UserModel = model<IUser & Document>('user', UserSchema) as IUserModel<IUser & Document>;

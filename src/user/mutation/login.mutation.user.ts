@@ -1,15 +1,15 @@
-import { Error } from '../../error/schema';
+import { IError } from '../../error/schema';
 import { decrypt } from '../../lib/functions';
 import { createJWT } from '../../lib/jwt';
 import { forbidden, notFound, serverError, unauthorized } from '../../lib/values';
 
 import { UserModel } from '../model';
-import { LoginInput, LoginSuccess, User } from '../schema';
+import { ILoginInput, ILoginSuccess, IUser } from '../schema';
 
-export const login = async (_: object, args: { user: LoginInput }): Promise<LoginSuccess | Error> => {
+export const login = async (_: object, args: { user: ILoginInput }): Promise<ILoginSuccess | IError> => {
   try {
     const { user } = args;
-    const userFound: User = await UserModel.findOne({ email: user.email });
+    const userFound: IUser = await UserModel.findOne({ email: user.email });
 
     if (!userFound) {
       return notFound('User does not exist');

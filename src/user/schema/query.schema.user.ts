@@ -1,15 +1,15 @@
 import { gql } from 'apollo-server-express';
 
-import { PaginationInput } from '../../pagination/schema';
+import { IPaginationInput } from '../../pagination/schema';
 
-export interface GetUserInput {
+export interface IGetUserInput {
   _id?: string;
   email?: string;
 }
 
-export interface GetUsersInput {
+export interface IGetUsersInput {
   active?: boolean;
-  pagination: PaginationInput;
+  pagination: IPaginationInput;
 }
 
 export const QuerySchemaUser = gql`

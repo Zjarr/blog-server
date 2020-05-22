@@ -1,29 +1,29 @@
 import { gql } from 'apollo-server-express';
 
-export interface PictureInput {
+export interface IPictureInput {
   _id: string;
   old?: string;
   new?: string;
 }
 
-export interface LoginInput {
+export interface ILoginInput {
   email: string;
   password: string;
 }
 
-export interface PasswordInput {
+export interface IPasswordInput {
   _id: string;
   old: string;
   new: string;
 }
 
-export interface SocialInput {
+export interface ISocialInput {
   icon: string;
   name: string;
   url: string;
 }
 
-export interface UserInput {
+export interface IUserInput {
   _id?: string;
   about?: string;
   active: boolean;
@@ -32,7 +32,7 @@ export interface UserInput {
   name: string;
   password?: string;
   role: string;
-  social?: SocialInput[];
+  social?: ISocialInput[];
 }
 
 export const MutationSchemaUser = gql`
