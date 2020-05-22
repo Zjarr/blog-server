@@ -1,24 +1,24 @@
 import Moment from 'moment';
 
-import { Context } from '../../context';
-import { Error } from '../../error/schema';
+import { IContext } from '../../context';
+import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
-import { Permission } from '../../role/schema';
+import { IPermission } from '../../role/schema';
 
 import { BlogModel } from '../model';
-import { Blog, BlogInput, BlogSuccess } from '../schema';
+import { IBlog, IBlogInput, IBlogSuccess } from '../schema';
 
-export const blog = async (_: object, args: { blog: BlogInput }, ctx: Context): Promise<BlogSuccess | Error> => {
+export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext): Promise<IBlogSuccess | IError> => {
   try {
     const { blog } = args;
     const { session } = ctx;
     let authorized: boolean;
 
     if (blog._id) {
-      authorized = await isAuthorized(session, Permission.UPDATE_BLOG);
+      authorized = await isAuthorized(session, IPermission.UPDATE_BLOG);
     } else {
-      authorized = await isAuthorized(session, Permission.CREATE_BLOG);
+      authorized = await isAuthorized(session, IPermission.CREATE_BLOG);
     }
 
     if (!authorized) {
@@ -27,7 +27,7 @@ export const blog = async (_: object, args: { blog: BlogInput }, ctx: Context): 
 
     const now = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
     const unique = blog.slug.trim().toLowerCase();
-    let blogResult: Blog;
+    let blogResult: IBlog;
 
     if (blog._id) {
       blogResult = await BlogModel.findByIdAndUpdate({ _id: blog._id }, { ...blog, unique, updated: now }, { new: true });

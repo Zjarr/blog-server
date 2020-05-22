@@ -1,11 +1,11 @@
 import { gql } from 'apollo-server-express';
 
-interface SourceInput {
+interface ISourceInput {
   name: string;
   url: string;
 }
 
-export interface BlogInput {
+export interface IBlogInput {
   _id?: string;
   active: boolean;
   author: string;
@@ -15,7 +15,7 @@ export interface BlogInput {
   description: string;
   keywords?: string[];
   slug: string;
-  sources?: SourceInput[];
+  sources?: ISourceInput[];
   title: string;
 }
 

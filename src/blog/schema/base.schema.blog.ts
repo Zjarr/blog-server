@@ -1,8 +1,8 @@
 import { gql } from 'apollo-server-express';
 
-import { Source } from '../../source/schema';
+import { ISource } from '../../source/schema';
 
-export interface Blog {
+export interface IBlog {
   active: boolean;
   author: string;
   body: string;
@@ -12,7 +12,7 @@ export interface Blog {
   description: string;
   keywords?: string[];
   slug: string;
-  sources?: Source[];
+  sources?: ISource[];
   title: string;
   updated: string;
 }
