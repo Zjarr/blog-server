@@ -1,13 +1,13 @@
 import { gql } from 'apollo-server-express';
 
-interface ErrorDetails {
+interface IErrorDetails {
   code: number;
   message?: string;
   status: string;
 }
 
-export interface Error {
-  error: ErrorDetails;
+export interface IError {
+  error: IErrorDetails;
 }
 
 export const BaseSchemaError = gql`
