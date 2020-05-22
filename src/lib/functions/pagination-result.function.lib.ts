@@ -1,13 +1,13 @@
 import { Document, PaginateResult } from 'mongoose';
 
-import { Blog } from '../../blog/schema';
-import { Category } from '../../category/schema';
-import { Image } from '../../image/schema';
-import { Pagination } from '../../pagination/schema';
-import { Role } from '../../role/schema';
-import { User } from '../../user/schema';
+import { IBlog } from '../../blog/schema';
+import { ICategory } from '../../category/schema';
+import { IImage } from '../../image/schema';
+import { IPagination } from '../../pagination/schema';
+import { IRole } from '../../role/schema';
+import { IUser } from '../../user/schema';
 
-export const paginationResult = (pagination: PaginateResult<Blog | Category | Image | Role | User & Document>): Pagination => {
+export const paginationResult = (pagination: PaginateResult<IBlog | ICategory | IImage | IRole | IUser & Document>): IPagination => {
   const { limit, hasNextPage: next, hasPrevPage: prev, page, totalDocs: total } = pagination;
 
   return { limit, next, page, prev, total };
