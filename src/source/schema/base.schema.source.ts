@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export interface Source {
+export interface ISource {
   name: string;
   url: string;
 }
