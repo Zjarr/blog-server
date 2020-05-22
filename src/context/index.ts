@@ -1,14 +1,14 @@
 import { Request } from 'express';
 
 import { verifyJWT } from '../lib/jwt';
-import { User } from '../user/schema';
+import { IUser } from '../user/schema';
 
-export interface Context {
+export interface IContext {
   origin: string | string[];
-  session: User;
+  session: IUser;
 }
 
-export const context = (ctx: { req: Request }): Context => {
+export const context = (ctx: { req: Request }): IContext => {
   const { req: { headers } } = ctx;
   const origin = headers.origin;
   const session = verifyJWT(headers.authorization);
