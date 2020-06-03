@@ -2,8 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export interface IPictureInput {
   _id: string;
-  old?: string;
-  new?: string;
+  url?: string;
 }
 
 export interface ILoginInput {
@@ -38,8 +37,7 @@ export interface IUserInput {
 export const MutationSchemaUser = gql`
   input PictureInput {
     _id: String!
-    old: String
-    new: String
+    url: String
   }
 
   input LoginInput {
@@ -72,7 +70,7 @@ export const MutationSchemaUser = gql`
   }
 
   extend type Mutation {
-    picture(user: PictureInput!): UserPayload!
+    picture(file: Upload!, user: PictureInput!): UserPayload!
     login(user: LoginInput!): LoginPayload!
     password(user: PasswordInput!): UserPayload!
     user(user: UserInput): UserPayload!
