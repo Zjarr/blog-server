@@ -1,6 +1,6 @@
 import Cloudinary, { UploadApiOptions } from 'cloudinary';
 
-import { Env } from '../../../env';
+import { Env } from '../env';
 
 const defaultUploadOptions: UploadApiOptions = {
   access_mode: 'authenticated',

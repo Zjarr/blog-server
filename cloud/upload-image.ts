@@ -1,7 +1,7 @@
 import { UploadApiErrorResponse, UploadApiOptions, UploadApiResponse } from 'cloudinary';
 import { FileUpload } from 'graphql-upload';
 
-import { ImageUploader } from '../cloud';
+import { ImageUploader } from '.';
 
 export const uploadImage = async (file: FileUpload, options: UploadApiOptions): Promise<UploadApiResponse | UploadApiErrorResponse> => {
   const { createReadStream } = await file;

@@ -1,10 +1,11 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import { FileUpload } from 'graphql-upload';
 
+import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
+
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { AdminAPI, usersUploadOptions } from '../../lib/cloud';
-import { getImageUnique, isAuthorized, uploadImage } from '../../lib/functions';
+import { getImageUnique, isAuthorized } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
