@@ -4,7 +4,6 @@ export interface IImageInput {
   _id?: string;
   active: boolean;
   alt: string;
-  base64?: string;
   description?: string;
   name: string;
   url?: string;
@@ -15,13 +14,12 @@ export const MutationSchemaImage = gql`
     _id: String
     active: Boolean!
     alt: String!
-    base64: String
     description: String
     name: String!
     url: String
   }
 
   extend type Mutation {
-    image(image: ImageInput!): ImagePayload!
+    image(file: Upload!, image: ImageInput!): ImagePayload!
   }
 `;
