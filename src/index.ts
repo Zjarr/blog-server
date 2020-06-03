@@ -70,6 +70,10 @@ import {
 } from './system/schema';
 import { system as SystemQuery } from './system/query';
 
+import {
+  BaseSchemaUpload
+} from './upload/schema';
+
 import { login as LoginMutation, password as PasswordMutation, picture as PictureMutation, user as UserMutation } from './user/mutation';
 import { user as UserQuery, users as UsersQuery } from './user/query';
 import {
@@ -116,6 +120,7 @@ const schemas = [
   BaseSchemaSocial,
   BaseSchemaSource,
   BaseSchemaSystem,
+  BaseSchemaUpload,
   BaseSchemaUser,
 
   MutationSchemaBlog,

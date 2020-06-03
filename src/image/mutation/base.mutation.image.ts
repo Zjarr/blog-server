@@ -1,18 +1,19 @@
-import { UploadApiResponse } from 'cloudinary';
+import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
+import { FileUpload } from 'graphql-upload';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { AdminAPI, assetsUploadOptions, ImageUploader } from '../../lib/cloud';
-import { getImageUnique, isAuthorized } from '../../lib/functions';
+import { AdminAPI, assetsUploadOptions } from '../../lib/cloud';
+import { getImageUnique, isAuthorized, uploadImage } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
 import { ImageModel } from '../model';
 import { IImage, IImageInput, IImageSuccess } from '../schema';
 
-export const image = async (_: object, args: { image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
+export const image = async (_: object, args: { file: FileUpload, image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
-    const { image } = args;
+    const { file, image } = args;
     const { session } = ctx;
     let authorized: boolean;
 
@@ -27,10 +28,10 @@ export const image = async (_: object, args: { image: IImageInput }, ctx: IConte
     }
 
     let imageResult: IImage;
-    let uploadResult: UploadApiResponse;
+    let uploadResult: UploadApiResponse | UploadApiErrorResponse;
 
-    if (image.base64) {
-      uploadResult = await ImageUploader.upload(image.base64, assetsUploadOptions);
+    if (file) {
+      uploadResult = await uploadImage(file, assetsUploadOptions);
     }
 
     if (image._id) {
