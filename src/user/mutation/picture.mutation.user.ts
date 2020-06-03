@@ -1,19 +1,20 @@
-import { UploadApiResponse } from 'cloudinary';
+import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
+import { FileUpload } from 'graphql-upload';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { AdminAPI, ImageUploader, usersUploadOptions } from '../../lib/cloud';
-import { getImageUnique, isAuthorized } from '../../lib/functions';
+import { AdminAPI, usersUploadOptions } from '../../lib/cloud';
+import { getImageUnique, isAuthorized, uploadImage } from '../../lib/functions';
 import { serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
 import { UserModel } from '../model';
 import { IPictureInput, IUser, IUserSuccess } from '../schema';
 
-export const picture = async (_: object, args: { user: IPictureInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const picture = async (_: object, args: { file: FileUpload, user: IPictureInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
+    const { file, user } = args;
     const { session } = ctx;
-    const { user } = args;
     let authorized: boolean;
 
     if (user._id) {
@@ -27,15 +28,15 @@ export const picture = async (_: object, args: { user: IPictureInput }, ctx: ICo
     }
 
     let picture: string;
-    let uploadResult: UploadApiResponse;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
 
-    if (user.old) {
-      const unique: string = getImageUnique(user.old, usersUploadOptions.folder);
+    if (user.url) {
+      const unique: string = getImageUnique(user.url, usersUploadOptions.folder);
       await AdminAPI.delete_resources([unique]);
     }
 
-    if (user.new) {
-      uploadResult = await ImageUploader.upload(user.new, usersUploadOptions);
+    if (file) {
+      uploadResult = await uploadImage(file, usersUploadOptions);
       picture = uploadResult.secure_url;
     }
 
