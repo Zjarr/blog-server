@@ -28,7 +28,7 @@ export const image = async (_: object, args: { file: FileUpload, image: IImageIn
     }
 
     let imageResult: IImage;
-    let uploadResult: UploadApiResponse | UploadApiErrorResponse;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
 
     if (file) {
       uploadResult = await uploadImage(file, assetsUploadOptions);
