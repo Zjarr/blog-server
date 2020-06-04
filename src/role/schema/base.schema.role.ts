@@ -17,6 +17,7 @@ export enum IPermission {
 }
 
 export interface IRole {
+  _id?: string;
   active: boolean;
   description: string;
   name: string;
@@ -25,6 +26,7 @@ export interface IRole {
 
 export const BaseSchemaRole = gql`
   type Role {
+    _id: String
     active: String!
     description: String!
     name: String!
