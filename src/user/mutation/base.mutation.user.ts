@@ -1,4 +1,8 @@
+import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
+import { FileUpload } from 'graphql-upload';
 import Moment from 'moment';
+
+import { uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
@@ -9,10 +13,10 @@ import { IPermission } from '../../role/schema';
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';
 
-export const user = async (_: object, args: { user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const user = async (_: object, args: { file: FileUpload, user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
+    const { file, user } = args;
     const { session } = ctx;
-    const { user } = args;
     let authorized: boolean;
 
     if (user._id) {
@@ -25,7 +29,14 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
       return unauthorized('You are not allowed to perform this action');
     }
 
+    let picture: string;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
     let userResult: IUser;
+
+    if (file) {
+      uploadResult = await uploadImage(file, usersUploadOptions);
+      picture = uploadResult.secure_url;
+    }
 
     if (user._id) {
       delete user.password;
@@ -35,7 +46,7 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
       user.password = encrypt(user.password);
 
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
-      userResult = await UserModel.create({ ...user, created });
+      userResult = await UserModel.create({ ...user, created, picture });
     }
 
     return {
