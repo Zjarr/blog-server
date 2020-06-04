@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express';
 import { ISource } from '../../source/schema';
 
 export interface IBlog {
+  _id?: string;
   active: boolean;
   author: string;
   body: string;
@@ -19,6 +20,7 @@ export interface IBlog {
 
 export const BaseSchemaBlog = gql`
   type Blog {
+    _id: String
     active: Boolean!
     author: String!
     body: String!
