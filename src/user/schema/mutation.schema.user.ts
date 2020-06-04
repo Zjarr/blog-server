@@ -70,9 +70,9 @@ export const MutationSchemaUser = gql`
   }
 
   extend type Mutation {
-    picture(file: Upload!, user: PictureInput!): UserPayload!
     login(user: LoginInput!): LoginPayload!
-    password(user: PasswordInput!): UserPayload!
-    user(user: UserInput): UserPayload!
+    password(password: PasswordInput!): UserPayload!
+    picture(file: Upload!, picture: PictureInput!): UserPayload!
+    user(file: Upload!, user: UserInput): UserPayload!
   }
 `;
