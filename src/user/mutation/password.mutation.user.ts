@@ -7,14 +7,14 @@ import { IPermission } from '../../role/schema';
 import { UserModel } from '../model';
 import { IPasswordInput, IUser, IUserSuccess } from '../schema';
 
-export const password = async (_: object, args: { user: IPasswordInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const password = async (_: object, args: { password: IPasswordInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
+    const { password } = args;
     const { session } = ctx;
-    const { user } = args;
     let authorized: boolean;
 
-    if (user._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_USER, user._id);
+    if (password._id) {
+      authorized = await isAuthorized(session, IPermission.UPDATE_USER, password._id);
     } else {
       authorized = await isAuthorized(session, IPermission.CREATE_USER);
     }
@@ -23,20 +23,20 @@ export const password = async (_: object, args: { user: IPasswordInput }, ctx: I
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const userFound: IUser = await UserModel.findById(user._id);
+    const userFound: IUser = await UserModel.findById(password._id);
 
     if (!userFound) {
       return notFound('User does not exist');
     }
 
-    const passwordMatch: boolean = decrypt(user.old, userFound.password);
+    const passwordMatch: boolean = decrypt(password.old, userFound.password);
 
     if (!passwordMatch) {
       return forbidden('Old password does not match');
     }
 
-    const password: string = encrypt(user.new);
-    const userResult: IUser = await UserModel.findByIdAndUpdate(userFound._id, { password }, { new: true });
+    const newPassword: string = encrypt(password.new);
+    const userResult: IUser = await UserModel.findByIdAndUpdate(userFound._id, { password: newPassword }, { new: true });
 
     return {
       user: userResult
