@@ -29,7 +29,7 @@ export interface IUserInput {
   email: string;
   lastname: string;
   name: string;
-  password?: string;
+  password: string;
   role: string;
   social?: ISocialInput[];
 }
@@ -64,7 +64,7 @@ export const MutationSchemaUser = gql`
     email: String!
     lastname: String!
     name: String!
-    password: String
+    password: String!
     role: String!
     social: [ SocialInput ]
   }
@@ -73,6 +73,6 @@ export const MutationSchemaUser = gql`
     login(user: LoginInput!): LoginPayload!
     password(password: PasswordInput!): UserPayload!
     picture(file: Upload!, picture: PictureInput!): UserPayload!
-    user(file: Upload!, user: UserInput): UserPayload!
+    user(file: Upload, user: UserInput): UserPayload!
   }
 `;

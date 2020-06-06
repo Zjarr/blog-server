@@ -4,7 +4,7 @@ import { ISocial } from '../../social/schema';
 
 export interface IUser {
   _id?: string;
-  about: string;
+  about?: string;
   active: boolean;
   created: string;
   email: string;

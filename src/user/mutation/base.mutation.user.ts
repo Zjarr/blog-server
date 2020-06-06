@@ -7,7 +7,7 @@ import { uploadImage, usersUploadOptions } from '../../../cloud';
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { encrypt, isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
+import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
 import { UserModel } from '../model';
@@ -29,6 +29,12 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
       return unauthorized('You are not allowed to perform this action');
     }
 
+    const userFound: IUser = await UserModel.findOne({ email: user.email });
+
+    if (!user._id && userFound) {
+      return conflict('Already exists an user with the provided email');
+    }
+
     let picture: string;
     let uploadResult: UploadApiErrorResponse | UploadApiResponse;
     let userResult: IUser;
@@ -43,9 +49,9 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
 
       userResult = await UserModel.findByIdAndUpdate(user._id, { ...user }, { new: true });
     } else {
-      user.password = encrypt(user.password);
-
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
+
+      user.password = encrypt(user.password);
       userResult = await UserModel.create({ ...user, created, picture });
     }
 
