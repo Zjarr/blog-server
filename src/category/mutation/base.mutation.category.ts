@@ -1,11 +1,12 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
+import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
 import { CategoryModel } from '../model';
 import { ICategory, ICategoryInput, ICategorySuccess } from '../schema';
+
 
 export const category = async (_: object, args: { category: ICategoryInput }, ctx: IContext): Promise<ICategorySuccess | IError> => {
   try {
@@ -24,6 +25,12 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     }
 
     const formatedName = category.name.trim().toLowerCase();
+    const categoryFound: ICategory = await CategoryModel.findOne({ name: formatedName });
+
+    if (!category._id && categoryFound) {
+      return conflict('Already exists a category with the provided name');
+    }
+
     let categoryResult: ICategory;
 
     if (category._id) {
