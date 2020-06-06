@@ -35,16 +35,12 @@ import {
 import { ImagePayload, ImagesPayload } from './image/union';
 
 import {
-  BaseSchemaMutation
-} from './mutation/schema';
+  BaseSchemaGlobal
+} from './global/schema';
 
 import {
   BaseSchemaPagination
 } from './pagination/schema';
-
-import {
-  BaseSchemaQuery
-} from './query/schema';
 
 import { role as RoleMutation } from './role/mutation';
 import { role as RoleQuery, roles as RolesQuery } from './role/query';
@@ -69,10 +65,6 @@ import {
   QuerySchemaSystem
 } from './system/schema';
 import { system as SystemQuery } from './system/query';
-
-import {
-  BaseSchemaUpload
-} from './upload/schema';
 
 import { login as LoginMutation, password as PasswordMutation, picture as PictureMutation, user as UserMutation } from './user/mutation';
 import { user as UserQuery, users as UsersQuery } from './user/query';
@@ -113,14 +105,13 @@ const schemas = [
   BaseSchemaBlog,
   BaseSchemaCategory,
   BaseSchemaError,
+  BaseSchemaGlobal,
   BaseSchemaImage,
-  BaseSchemaMutation,
   BaseSchemaPagination,
   BaseSchemaRole,
   BaseSchemaSocial,
   BaseSchemaSource,
   BaseSchemaSystem,
-  BaseSchemaUpload,
   BaseSchemaUser,
 
   MutationSchemaBlog,
@@ -131,7 +122,6 @@ const schemas = [
 
   QuerySchemaBlog,
   QuerySchemaCategory,
-  BaseSchemaQuery,
   QuerySchemaImage,
   QuerySchemaRole,
   QuerySchemaSystem,
