@@ -21,7 +21,7 @@ export interface IRole {
   active: boolean;
   description: string;
   name: string;
-  permissions: IPermission[];
+  permissions: string[];
 }
 
 export const BaseSchemaRole = gql`
