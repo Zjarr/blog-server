@@ -36,6 +36,11 @@ export const notFound = (message?: string): IError => formatError(
   message
 );
 
+export const conflict = (message?: string): IError => formatError(
+  codes['409'],
+  message
+);
+
 export const serverError = (message?: string): IError => formatError(
   codes['500'],
   message
