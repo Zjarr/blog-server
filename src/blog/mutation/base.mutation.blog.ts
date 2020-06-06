@@ -3,7 +3,7 @@ import Moment from 'moment';
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
+import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
 
 import { BlogModel } from '../model';
@@ -23,6 +23,12 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
+    }
+
+    const blogFound: IBlog = await BlogModel.findOne({ slug: blog.slug });
+
+    if (!blog._id && blogFound) {
+      return conflict('Already exists a blog with the provided slug');
     }
 
     const now = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
