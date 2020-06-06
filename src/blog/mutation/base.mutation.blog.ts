@@ -26,13 +26,13 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
     }
 
     const now = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
-    const unique = blog.slug.trim().toLowerCase();
+    const slug = blog.slug.trim().toLowerCase();
     let blogResult: IBlog;
 
     if (blog._id) {
-      blogResult = await BlogModel.findByIdAndUpdate({ _id: blog._id }, { ...blog, unique, updated: now }, { new: true });
+      blogResult = await BlogModel.findByIdAndUpdate({ _id: blog._id }, { ...blog, slug, updated: now }, { new: true });
     } else {
-      blogResult = await BlogModel.create({ ...blog, created: now, unique, updated: now });
+      blogResult = await BlogModel.create({ ...blog, created: now, slug, updated: now });
     }
 
     return {
