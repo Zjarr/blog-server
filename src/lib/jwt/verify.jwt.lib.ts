@@ -5,8 +5,7 @@ import { Env } from '../../../env';
 import { IUser } from '../../user/schema';
 
 export const verifyJWT = (authorization: string): IUser | null => {
-  const tokenWithBearer = authorization || '';
-  const token = tokenWithBearer.split(' ')[1];
+  const token = authorization || '';
 
   try {
     if (!token) {
