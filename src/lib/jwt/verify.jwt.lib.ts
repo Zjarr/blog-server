@@ -4,7 +4,7 @@ import { Env } from '../../../env';
 
 import { IUser } from '../../user/schema';
 
-export const verifyJWT = (authorization: string): IUser | null => {
+export const verifyJWT = (authorization: string | undefined): IUser | null => {
   const token = authorization || '';
 
   try {
@@ -12,7 +12,7 @@ export const verifyJWT = (authorization: string): IUser | null => {
       return null;
     }
 
-    return jwt.verify(token, Env.JWT_PRIVATE) as IUser;
+    return jwt.verify(token, Env.JWT_PRIVATE!) as IUser;
   } catch (error) {
     return null;
   }
