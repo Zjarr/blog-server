@@ -8,7 +8,7 @@ export interface IPaginationInput {
 export interface IPagination {
   limit: number;
   next: boolean;
-  page: number;
+  page: number | undefined;
   prev: boolean;
   total: number;
 }
