@@ -38,7 +38,7 @@ export const image = async (_: object, args: { image: IGetImageInput }, ctx: ICo
 
     const { image } = args;
     const searchQuery: ISearchQuery = createSearchQuery(image);
-    const imageFound: IImage = await ImageModel.findOne(searchQuery);
+    const imageFound: IImage | null = await ImageModel.findOne(searchQuery);
 
     return {
       image: imageFound

@@ -28,8 +28,8 @@ export const image = async (_: object, args: { file: FileUpload, image: IImageIn
       return unauthorized('You are not allowed to perform this action');
     }
 
-    let imageResult: IImage;
-    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
+    let imageResult: IImage | null;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
 
     if (file) {
       uploadResult = await uploadImage(file, assetsUploadOptions);
@@ -42,12 +42,12 @@ export const image = async (_: object, args: { file: FileUpload, image: IImageIn
         const unique = getImageUnique(image.url, assetsUploadOptions.folder);
 
         await AdminAPI.delete_resources([unique]);
-        updateQuery.url = uploadResult.secure_url;
+        updateQuery.url = uploadResult?.secure_url;
       }
 
       imageResult = await ImageModel.findByIdAndUpdate(image._id, updateQuery, { new: true });
     } else {
-      imageResult = await ImageModel.create({ ...image, url: uploadResult.secure_url });
+      imageResult = await ImageModel.create({ ...image, url: uploadResult?.secure_url });
     }
 
     return {

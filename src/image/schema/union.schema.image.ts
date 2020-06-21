@@ -5,7 +5,7 @@ import { IPagination } from '../../pagination/schema';
 import { IImage } from './base.schema.image';
 
 export interface IImageSuccess {
-  image: IImage;
+  image: IImage | null;
 }
 
 export interface IImagesSuccess {
