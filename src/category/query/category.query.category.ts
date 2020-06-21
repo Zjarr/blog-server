@@ -28,7 +28,7 @@ export const category = async (_: object, args: { category: IGetCategoryInput })
   try {
     const { category } = args;
     const searchQuery = createSearchQuery(category);
-    const categoryFound: ICategory = await CategoryModel.findOne(searchQuery);
+    const categoryFound: ICategory | null = await CategoryModel.findOne(searchQuery);
 
     return {
       category: categoryFound

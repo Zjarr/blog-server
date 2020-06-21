@@ -9,7 +9,7 @@ export interface ICategoriesSuccess {
   pagination: IPagination;
 }
 export interface ICategorySuccess {
-  category: ICategory;
+  category: ICategory | null;
 }
 
 export const UnionSchemaCategory = gql`

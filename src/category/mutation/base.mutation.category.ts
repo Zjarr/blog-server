@@ -25,13 +25,13 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     }
 
     const formatedName = category.name.trim().toLowerCase();
-    const categoryFound: ICategory = await CategoryModel.findOne({ name: formatedName });
+    const categoryFound: ICategory | null = await CategoryModel.findOne({ name: formatedName });
 
     if (!category._id && categoryFound) {
       return conflict('Already exists a category with the provided name');
     }
 
-    let categoryResult: ICategory;
+    let categoryResult: ICategory | null;
 
     if (category._id) {
       categoryResult = await CategoryModel.findByIdAndUpdate(category._id, category, { new: true });
