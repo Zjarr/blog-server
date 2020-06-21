@@ -28,7 +28,7 @@ export const user = async (_: object, args: { user: IGetUserInput }): Promise<IU
   try {
     const { user } = args;
     const searchQuery: ISearchQuery = createSearchQuery(user);
-    const userResult: IUser = await UserModel.findOne(searchQuery);
+    const userResult: IUser | null = await UserModel.findOne(searchQuery);
 
     return {
       user: userResult

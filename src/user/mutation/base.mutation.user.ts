@@ -29,19 +29,17 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const userFound: IUser = await UserModel.findOne({ email: user.email });
+    const userFound: IUser | null = await UserModel.findOne({ email: user.email });
 
     if (!user._id && userFound) {
       return conflict('Already exists an user with the provided email');
     }
 
-    let picture: string;
-    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
-    let userResult: IUser;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
+    let userResult: IUser | null;
 
     if (file) {
       uploadResult = await uploadImage(file, usersUploadOptions);
-      picture = uploadResult.secure_url;
     }
 
     if (user._id) {
@@ -52,7 +50,7 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
 
       user.password = encrypt(user.password);
-      userResult = await UserModel.create({ ...user, created, picture });
+      userResult = await UserModel.create({ ...user, created, picture: uploadResult?.secure_url });
     }
 
     return {

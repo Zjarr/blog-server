@@ -23,7 +23,7 @@ export const password = async (_: object, args: { password: IPasswordInput }, ct
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const userFound: IUser = await UserModel.findById(password._id);
+    const userFound: IUser | null = await UserModel.findById(password._id);
 
     if (!userFound) {
       return notFound('User does not exist');
@@ -36,7 +36,7 @@ export const password = async (_: object, args: { password: IPasswordInput }, ct
     }
 
     const newPassword: string = encrypt(password.new);
-    const userResult: IUser = await UserModel.findByIdAndUpdate(userFound._id, { password: newPassword }, { new: true });
+    const userResult: IUser | null = await UserModel.findByIdAndUpdate(userFound._id, { password: newPassword }, { new: true });
 
     return {
       user: userResult

@@ -28,8 +28,7 @@ export const picture = async (_: object, args: { file: FileUpload, picture: IPic
       return unauthorized('You are not allowed to perform this action');
     }
 
-    let pictureUrl: string;
-    let uploadResult: UploadApiErrorResponse | UploadApiResponse;
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
 
     if (picture.url) {
       const unique: string = getImageUnique(picture.url, usersUploadOptions.folder);
@@ -38,10 +37,9 @@ export const picture = async (_: object, args: { file: FileUpload, picture: IPic
 
     if (file) {
       uploadResult = await uploadImage(file, usersUploadOptions);
-      pictureUrl = uploadResult.secure_url;
     }
 
-    const userResult: IUser = await UserModel.findByIdAndUpdate(picture._id, { picture: pictureUrl }, { new: true });
+    const userResult: IUser | null = await UserModel.findByIdAndUpdate(picture._id, { picture: uploadResult?.secure_url }, { new: true });
 
     return {
       user: userResult

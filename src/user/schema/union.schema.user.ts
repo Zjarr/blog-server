@@ -10,7 +10,7 @@ export interface ILoginSuccess {
 }
 
 export interface IUserSuccess {
-  user: IUser;
+  user: IUser | null;
 }
 
 export interface IUsersSuccess {

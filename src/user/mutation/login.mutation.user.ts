@@ -9,7 +9,7 @@ import { ILoginInput, ILoginSuccess, IUser } from '../schema';
 export const login = async (_: object, args: { user: ILoginInput }): Promise<ILoginSuccess | IError> => {
   try {
     const { user } = args;
-    const userFound: IUser = await UserModel.findOne({ email: user.email });
+    const userFound: IUser | null = await UserModel.findOne({ email: user.email });
 
     if (!userFound) {
       return notFound('User does not exist');
@@ -26,7 +26,7 @@ export const login = async (_: object, args: { user: ILoginInput }): Promise<ILo
     }
 
     const { _id, active, email, lastname, name, role } = userFound;
-    const token: string = createJWT(_id, active, email, lastname, name, role);
+    const token: string = createJWT(_id!, active, email, lastname, name, role);
     delete user.password;
 
     return {
