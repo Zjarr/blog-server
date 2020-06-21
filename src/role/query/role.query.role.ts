@@ -37,7 +37,7 @@ export const role = async (_: object, args: { role: IGetRoleInput }, ctx: IConte
 
     const { role } = args;
     const searchQuery = createSearchQuery(role);
-    const roleResult: IRole = await RoleModel.findOne(searchQuery);
+    const roleResult: IRole | null = await RoleModel.findOne(searchQuery);
 
     return {
       role: roleResult

@@ -23,13 +23,13 @@ export const role = async (_: object, args: { role: IRoleInput }, ctx: IContext)
     }
 
     const formatedName = role.name.trim().toLowerCase();
-    const roleFound: IRole = await RoleModel.findOne({ name: formatedName });
+    const roleFound: IRole | null = await RoleModel.findOne({ name: formatedName });
 
     if (!role._id && roleFound) {
       return conflict('Already exist a role with the provided name');
     }
 
-    let roleResult: IRole;
+    let roleResult: IRole | null;
 
     if (role._id) {
       roleResult = await RoleModel.findByIdAndUpdate(role._id, { ...role, name: formatedName }, { new: true });

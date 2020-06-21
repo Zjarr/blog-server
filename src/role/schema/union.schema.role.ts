@@ -5,7 +5,7 @@ import { IPagination } from '../../pagination/schema';
 import { IRole } from './base.schema.role';
 
 export interface IRoleSuccess {
-  role: IRole;
+  role: IRole | null;
 }
 export interface IRolesSuccess {
   pagination: IPagination;
