@@ -5,7 +5,7 @@ import { IPagination } from '../../pagination/schema';
 import { IBlog } from './base.schema.blog';
 
 export interface IBlogSuccess {
-  blog: IBlog;
+  blog: IBlog | null;
 }
 
 export interface IBlogsSuccess {

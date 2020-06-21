@@ -25,7 +25,7 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const blogFound: IBlog = await BlogModel.findOne({ slug: blog.slug });
+    const blogFound: IBlog | null = await BlogModel.findOne({ slug: blog.slug });
 
     if (!blog._id && blogFound) {
       return conflict('Already exists a blog with the provided slug');
@@ -33,7 +33,7 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
 
     const now = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
     const slug = blog.slug.trim().toLowerCase();
-    let blogResult: IBlog;
+    let blogResult: IBlog | null;
 
     if (blog._id) {
       blogResult = await BlogModel.findByIdAndUpdate({ _id: blog._id }, { ...blog, slug, updated: now }, { new: true });

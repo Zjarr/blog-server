@@ -28,7 +28,7 @@ export const blog = async (_: object, args: { blog: IGetBlogInput }): Promise<IB
   try {
     const { blog } = args;
     const searchQuery: ISearchQuery = createSearchQuery(blog);
-    const blogFound: IBlog = await BlogModel.findOne(searchQuery);
+    const blogFound: IBlog | null = await BlogModel.findOne(searchQuery);
 
     return {
       blog: blogFound
