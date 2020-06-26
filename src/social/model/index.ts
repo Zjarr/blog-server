@@ -1,1 +1,1 @@
-export { SocialSchema } from './base.model.social';
+export { SocialSchema } from './social.model';

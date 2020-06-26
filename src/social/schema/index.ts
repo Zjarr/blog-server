@@ -1,1 +1,1 @@
-export * from './base.schema.social';
+export * from './social.schema';
