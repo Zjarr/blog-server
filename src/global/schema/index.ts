@@ -1,1 +1,1 @@
-export * from './base.schema.global';
+export * from './global.schema';
