@@ -1,1 +1,1 @@
-export * from './base.schema.error';
+export * from './error.schema';
