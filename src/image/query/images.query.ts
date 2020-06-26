@@ -2,10 +2,10 @@ import { Document, PaginateResult } from 'mongoose';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { isAuthorized, paginationResult } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
 import { IPagination } from '../../pagination/schema';
 import { IPermission } from '../../role/schema';
+import { isAuthorized, paginationResult } from '../../utils/functions';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { ImageModel } from '../model';
 import { IGetImagesInput, IImage, IImagesSuccess } from '../schema';

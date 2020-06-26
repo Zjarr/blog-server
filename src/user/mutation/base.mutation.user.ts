@@ -6,9 +6,9 @@ import { uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { encrypt, isAuthorized } from '../../lib/functions';
-import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { encrypt, isAuthorized } from '../../utils/functions';
+import { conflict, serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';

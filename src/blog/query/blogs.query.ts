@@ -1,9 +1,9 @@
 import { Document, PaginateResult } from 'mongoose';
 
 import { IError } from '../../error/schema';
-import { paginationResult } from '../../lib/functions';
-import { serverError } from '../../lib/values';
 import { IPagination } from '../../pagination/schema';
+import { paginationResult } from '../../utils/functions';
+import { serverError } from '../../utils/values';
 
 import { BlogModel } from '../model';
 import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';

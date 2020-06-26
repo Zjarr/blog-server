@@ -1,8 +1,8 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { isAuthorized } from '../../utils/functions';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { ImageModel } from '../model';
 import { IGetImageInput, IImage, IImageSuccess } from '../schema';

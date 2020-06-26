@@ -1,12 +1,11 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { isAuthorized } from '../../lib/functions';
-import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { isAuthorized } from '../../utils/functions';
+import { conflict, serverError, unauthorized } from '../../utils/values';
 
 import { CategoryModel } from '../model';
 import { ICategory, ICategoryInput, ICategorySuccess } from '../schema';
-
 
 export const category = async (_: object, args: { category: ICategoryInput }, ctx: IContext): Promise<ICategorySuccess | IError> => {
   try {

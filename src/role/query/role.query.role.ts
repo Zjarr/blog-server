@@ -1,7 +1,7 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
+import { isAuthorized } from '../../utils/functions';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { RoleModel } from '../model';
 import { IGetRoleInput, IPermission, IRole, IRoleSuccess } from '../schema';

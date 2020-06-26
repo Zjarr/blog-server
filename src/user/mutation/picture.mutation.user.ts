@@ -5,9 +5,9 @@ import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { getImageUnique, isAuthorized } from '../../lib/functions';
-import { serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { getImageUnique, isAuthorized } from '../../utils/functions';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IPictureInput, IUser, IUserSuccess } from '../schema';

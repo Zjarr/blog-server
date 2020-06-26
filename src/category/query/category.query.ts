@@ -1,5 +1,5 @@
 import { IError } from '../../error/schema';
-import { serverError } from '../../lib/values';
+import { serverError } from '../../utils/values';
 
 import { CategoryModel } from '../model';
 import { ICategory, ICategorySuccess, IGetCategoryInput } from '../schema';

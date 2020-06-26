@@ -1,8 +1,8 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { decrypt, encrypt, isAuthorized } from '../../lib/functions';
-import { forbidden, notFound, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { decrypt, encrypt, isAuthorized } from '../../utils/functions';
+import { forbidden, notFound, serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IPasswordInput, IUser, IUserSuccess } from '../schema';

@@ -1,5 +1,5 @@
 import { IError } from '../../error/schema';
-import { serverError } from '../../lib/values';
+import { serverError } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IGetUserInput, IUser, IUserSuccess } from '../schema';

@@ -1,7 +1,7 @@
 import { IError } from '../../error/schema';
-import { decrypt } from '../../lib/functions';
-import { createJWT } from '../../lib/jwt';
-import { forbidden, notFound, serverError, unauthorized } from '../../lib/values';
+import { decrypt } from '../../utils/functions';
+import { createJWT } from '../../utils/jwt';
+import { forbidden, notFound, serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { ILoginInput, ILoginSuccess, IUser } from '../schema';

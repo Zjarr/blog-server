@@ -2,9 +2,9 @@ import Moment from 'moment';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { isAuthorized } from '../../lib/functions';
-import { conflict, serverError, unauthorized } from '../../lib/values';
 import { IPermission } from '../../role/schema';
+import { isAuthorized } from '../../utils/functions';
+import { conflict, serverError, unauthorized } from '../../utils/values';
 
 import { BlogModel } from '../model';
 import { IBlog, IBlogInput, IBlogSuccess } from '../schema';
