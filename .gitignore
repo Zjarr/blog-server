@@ -3,19 +3,19 @@
 
 # Vs Code
 /vscode
-*.vscode*
+*.vscode
 
 # Node
 /node_modules
 
 # Envitonment
-*.env*
+*.env
 
 #Sensitive Keys
-*.key*
+*.key
 
 # Logs
-*.log*
+*.log
 
 # MacOS
-*.DS_Store*
+*.DS_Store
