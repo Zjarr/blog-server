@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 import { IPagination } from '../../pagination/schema';
 
-import { IImage } from './base.schema.image';
+import { IImage } from './image.schema';
 
 export interface IImageSuccess {
   image: IImage | null;

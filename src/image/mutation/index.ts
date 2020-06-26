@@ -1,1 +1,1 @@
-export * from './base.mutation.image';
+export * from './image.mutation';

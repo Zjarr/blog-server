@@ -1,2 +1,2 @@
-export * from './image.query.image';
-export * from './images.query.image';
+export * from './image.query';
+export * from './images.query';

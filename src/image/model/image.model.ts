@@ -1,7 +1,7 @@
 import { Document, model, PaginateModel, Schema } from 'mongoose';
 import MongoosePaginate from 'mongoose-paginate-v2';
 
-import { IImage } from '../../image/schema';
+import { IImage } from '../schema';
 
 export const ImageSchema = new Schema({
   active: {

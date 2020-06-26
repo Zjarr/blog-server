@@ -1,1 +1,1 @@
-export { ImageModel, ImageSchema } from './base.model.image';
+export { ImageModel, ImageSchema } from './image.model';

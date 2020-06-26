@@ -1,2 +1,2 @@
-export * from './image.union.image';
-export * from './images.union.image';
+export * from './image.union';
+export * from './images.union';
