@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 import { IPagination } from '../../pagination/schema';
 
-import { IUser } from './base.schema.user';
+import { IUser } from './user.schema';
 
 export interface ILoginSuccess {
   token: string;

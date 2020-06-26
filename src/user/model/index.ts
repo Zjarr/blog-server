@@ -1,1 +1,1 @@
-export { UserModel, UserSchema } from './base.model.user';
+export { UserModel, UserSchema } from './user.model';

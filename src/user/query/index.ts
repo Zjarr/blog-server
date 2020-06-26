@@ -1,2 +1,2 @@
-export * from './user.query.user';
-export * from './users.query.user';
+export * from './user.query';
+export * from './users.query';
