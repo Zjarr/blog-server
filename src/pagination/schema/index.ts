@@ -1,1 +1,1 @@
-export * from './base.schema.pagination';
+export * from './pagination.schema';
