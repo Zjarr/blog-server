@@ -1,7 +1,7 @@
 import { Document, model, PaginateModel, Schema } from 'mongoose';
 import MongoosePaginate from 'mongoose-paginate-v2';
 
-import { ICategory } from '../../category/schema';
+import { ICategory } from '../schema';
 
 export const CategorySchema = new Schema({
   active: {

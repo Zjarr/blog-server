@@ -1,2 +1,2 @@
-export * from './categories.query.category';
-export * from './category.query.category';
+export * from './categories.query';
+export * from './category.query';

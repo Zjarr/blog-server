@@ -1,1 +1,1 @@
-export { CategoryModel, CategorySchema } from './base.model.category';
+export { CategoryModel, CategorySchema } from './category.model';

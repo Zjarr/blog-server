@@ -1,1 +1,1 @@
-export * from './base.mutation.category';
+export * from './category.mutation';

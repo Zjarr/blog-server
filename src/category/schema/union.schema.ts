@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 import { IPagination } from '../../pagination/schema';
 
-import { ICategory } from './base.schema.category';
+import { ICategory } from './category.schema';
 
 export interface ICategoriesSuccess {
   categories: ICategory[];
