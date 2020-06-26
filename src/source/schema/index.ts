@@ -1,1 +1,1 @@
-export * from './base.schema.source';
+export * from './source.schema';
