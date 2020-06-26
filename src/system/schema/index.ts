@@ -1,2 +1,2 @@
-export * from './base.schema.system';
-export * from './query.schema.system';
+export * from './system.schema';
+export * from './query.schema';

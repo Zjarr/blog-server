@@ -1,1 +1,1 @@
-export * from './system.query.system';
+export * from './system.query';
