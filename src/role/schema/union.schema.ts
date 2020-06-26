@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 import { IPagination } from '../../pagination/schema';
 
-import { IRole } from './base.schema.role';
+import { IRole } from './base.schema';
 
 export interface IRoleSuccess {
   role: IRole | null;

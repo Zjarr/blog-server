@@ -1,2 +1,2 @@
-export * from './role.query.role';
-export * from './roles.query.role';
+export * from './role.query';
+export * from './roles.query';

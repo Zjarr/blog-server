@@ -1,1 +1,1 @@
-export { RoleModel, RoleSchema } from './base.model.role';
+export { RoleModel, RoleSchema } from './role.model';

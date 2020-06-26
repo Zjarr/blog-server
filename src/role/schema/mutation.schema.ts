@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-import { IPermission } from './base.schema.role';
+import { IPermission } from './base.schema';
 
 export interface IRoleInput {
   _id?: string;

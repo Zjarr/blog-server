@@ -1,2 +1,2 @@
-export * from './role.union.role';
-export * from './roles.union.role';
+export * from './role.union';
+export * from './roles.union';

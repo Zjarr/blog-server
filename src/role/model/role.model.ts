@@ -1,7 +1,7 @@
 import { Document, model, PaginateModel, Schema } from 'mongoose';
 import MongoosePaginate from 'mongoose-paginate-v2';
 
-import { IPermission, IRole } from '../../role/schema';
+import { IPermission, IRole } from '../schema';
 
 export const RoleSchema = new Schema({
   active: {

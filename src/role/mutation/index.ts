@@ -1,1 +1,1 @@
-export * from './base.mutation.role';
+export * from './role.mutation';
