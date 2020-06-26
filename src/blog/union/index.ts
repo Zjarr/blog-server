@@ -1,2 +1,2 @@
-export * from './blog.union.blog';
-export * from './blogs.union.blog';
+export * from './blog.union';
+export * from './blogs.union';

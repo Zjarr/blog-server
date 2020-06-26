@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 import { IPagination } from '../../pagination/schema';
 
-import { IBlog } from './base.schema.blog';
+import { IBlog } from './blog.schema';
 
 export interface IBlogSuccess {
   blog: IBlog | null;

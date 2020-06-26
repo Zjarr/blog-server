@@ -1,1 +1,1 @@
-export * from './base.mutation.blog';
+export * from './blog.mutation';

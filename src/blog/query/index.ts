@@ -1,2 +1,2 @@
-export * from './blog.query.blog';
-export * from './blogs.query.blog';
+export * from './blog.query';
+export * from './blogs.query';
