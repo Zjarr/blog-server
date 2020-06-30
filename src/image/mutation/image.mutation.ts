@@ -1,5 +1,4 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
-import { FileUpload } from 'graphql-upload';
 
 import { AdminAPI, assetsUploadOptions, uploadImage } from '../../../cloud';
 import { IContext } from '../../context';
@@ -10,9 +9,9 @@ import { serverError, unauthorized } from '../../utils/values';
 import { ImageModel } from '../model';
 import { IImage, IImageInput, IImageSuccess } from '../schema';
 
-export const image = async (_: object, args: { file: FileUpload, image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
+export const image = async (_: object, args: { image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
-    const { file, image } = args;
+    const { image } = args;
     const { session } = ctx;
     const authorized: boolean = await isAuthorized(session);
 
@@ -23,8 +22,8 @@ export const image = async (_: object, args: { file: FileUpload, image: IImageIn
     let imageResult: IImage | null;
     let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
 
-    if (file) {
-      uploadResult = await uploadImage(file, assetsUploadOptions);
+    if (image.file) {
+      uploadResult = await uploadImage(image.file, assetsUploadOptions);
     }
 
     if (image._id) {
