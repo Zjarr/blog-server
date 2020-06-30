@@ -43,7 +43,7 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
 
       user.password = encrypt(user.password);
-      userResult = await UserModel.create({ ...user, created, picture: uploadResult?.secure_url });
+      userResult = await UserModel.create({ ...user, created, image: uploadResult?.secure_url });
     }
 
     return {

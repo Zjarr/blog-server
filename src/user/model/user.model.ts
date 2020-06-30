@@ -11,12 +11,6 @@ export const UserSchema = new Schema({
     type: String
   },
 
-  active: {
-    default: true,
-    required: true,
-    type: Boolean
-  },
-
   created: {
     required: true,
     type: String
@@ -26,6 +20,11 @@ export const UserSchema = new Schema({
     required: true,
     type: String,
     unique: true
+  },
+
+  image: {
+    required: false,
+    type: String
   },
 
   lastname: {
@@ -43,17 +42,6 @@ export const UserSchema = new Schema({
     type: String
   },
 
-  picture: {
-    required: false,
-    type: String
-  },
-
-  role: {
-    ref: 'role',
-    required: true,
-    type: Schema.Types.ObjectId,
-  },
-
   social: [{
     required: false,
     type: SocialSchema
@@ -62,6 +50,6 @@ export const UserSchema = new Schema({
 
 UserSchema.plugin(MongoosePaginate);
 
-interface IUserModel<T extends Document> extends PaginateModel<T> {};
+interface IUserModel<T extends Document> extends PaginateModel<T> { };
 
 export const UserModel = model<IUser & Document>('user', UserSchema) as IUserModel<IUser & Document>;

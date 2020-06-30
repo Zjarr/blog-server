@@ -57,14 +57,14 @@ import {
 import { system as SystemQuery } from './system/query';
 
 import { login as LoginMutation, password as PasswordMutation, picture as PictureMutation, user as UserMutation } from './user/mutation';
-import { user as UserQuery, users as UsersQuery } from './user/query';
+import { user as UserQuery } from './user/query';
 import {
   BaseSchemaUser,
   MutationSchemaUser,
   QuerySchemaUser,
   UnionSchemaUser
 } from './user/schema';
-import { LoginPayload, UserPayload, UsersPayload } from './user/union';
+import { LoginPayload, UserPayload } from './user/union';
 
 const Mutation = {
   blog: BlogMutation,
@@ -84,8 +84,7 @@ const Query = {
   image: ImageQuery,
   images: ImagesQuery,
   system: SystemQuery,
-  user: UserQuery,
-  users: UsersQuery
+  user: UserQuery
 };
 
 const schemas = [
@@ -125,8 +124,7 @@ const Union = {
   ImagePayload,
   ImagesPayload,
   LoginPayload,
-  UserPayload,
-  UsersPayload
+  UserPayload
 };
 
 const resolvers = {

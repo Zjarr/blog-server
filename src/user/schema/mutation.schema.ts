@@ -25,7 +25,6 @@ export interface ISocialInput {
 export interface IUserInput {
   _id?: string;
   about?: string;
-  active: boolean;
   email: string;
   lastname: string;
   name: string;
@@ -60,7 +59,6 @@ export const MutationSchemaUser = gql`
   input UserInput {
     _id: String
     about: String
-    active: Boolean!
     email: String!
     lastname: String!
     name: String!

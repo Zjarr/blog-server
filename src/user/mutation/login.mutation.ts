@@ -1,7 +1,7 @@
 import { IError } from '../../error/schema';
 import { decrypt } from '../../utils/functions';
 import { createJWT } from '../../utils/jwt';
-import { forbidden, notFound, serverError, unauthorized } from '../../utils/values';
+import { forbidden, notFound, serverError } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { ILoginInput, ILoginSuccess, IUser } from '../schema';
@@ -21,12 +21,8 @@ export const login = async (_: object, args: { user: ILoginInput }): Promise<ILo
       return forbidden('Password does not match');
     }
 
-    if (!userFound.active) {
-      return unauthorized('User has been disabled');
-    }
-
-    const { _id, active, email, lastname, name, role } = userFound;
-    const token: string = createJWT(_id!, active, email, lastname, name, role);
+    const { _id, email, lastname, name } = userFound;
+    const token: string = createJWT(_id!, email, lastname, name);
     delete user.password;
 
     return {

@@ -10,7 +10,7 @@ interface ISearchQuery {
 }
 
 const createSearchQuery = (query: IGetUserInput): ISearchQuery => {
-  const searchQuery: ISearchQuery = { };
+  const searchQuery: ISearchQuery = {};
   const { _id, email } = query;
 
   if (_id) {
