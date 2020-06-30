@@ -29,7 +29,6 @@ export interface IUserInput {
   lastname: string;
   name: string;
   password: string;
-  role: string;
   social?: ISocialInput[];
 }
 
@@ -63,7 +62,6 @@ export const MutationSchemaUser = gql`
     lastname: String!
     name: String!
     password: String!
-    role: String!
     social: [ SocialInput ]
   }
 
