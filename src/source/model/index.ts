@@ -1,1 +1,1 @@
-export { SourceSchema } from './source.model';
+export * from './source.model';

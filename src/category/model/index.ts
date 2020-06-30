@@ -1,1 +1,1 @@
-export { CategoryModel, CategorySchema } from './category.model';
+export * from './category.model';

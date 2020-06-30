@@ -1,1 +1,1 @@
-export { SocialSchema } from './social.model';
+export * from './social.model';
