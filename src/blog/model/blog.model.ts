@@ -12,11 +12,6 @@ export const BlogSchema = new Schema({
     type: Boolean
   },
 
-  author: {
-    required: true,
-    type: String
-  },
-
   body: {
     required: true,
     type: String
@@ -25,12 +20,6 @@ export const BlogSchema = new Schema({
   categories: [{
     ref: 'category',
     required: false,
-    type: Schema.Types.ObjectId
-  }],
-
-  collaborators: [{
-    required: false,
-    ref: 'user',
     type: Schema.Types.ObjectId
   }],
 
@@ -44,10 +33,10 @@ export const BlogSchema = new Schema({
     type: String
   },
 
-  keywords: [{
-    required: false,
+  image: {
+    required: true,
     type: String
-  }],
+  },
 
   slug: {
     required: true,
@@ -73,6 +62,6 @@ export const BlogSchema = new Schema({
 
 BlogSchema.plugin(MongoosePaginate);
 
-interface IBlogModel<T extends Document> extends PaginateModel<T> {};
+interface IBlogModel<T extends Document> extends PaginateModel<T> { };
 
 export const BlogModel = model<IBlog & Document>('blog', BlogSchema) as IBlogModel<IBlog & Document>;

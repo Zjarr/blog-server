@@ -8,12 +8,10 @@ interface ISourceInput {
 export interface IBlogInput {
   _id?: string;
   active: boolean;
-  author: string;
   body: string;
   categories?: string[];
-  collaborators?: string[];
   description: string;
-  keywords?: string[];
+  image: string;
   slug: string;
   sources?: ISourceInput[];
   title: string;
@@ -28,12 +26,10 @@ export const MutationSchemaBlog = gql`
   input BlogInput {
     _id: String
     active: Boolean!
-    author: String!
     body: String!
     categories: [ String ]
-    collaborators: [ String ]
     description: String!
-    keywords: [ String ]
+    image: String!
     slug: String!
     sources: [ SourceInput ]
     title: String!

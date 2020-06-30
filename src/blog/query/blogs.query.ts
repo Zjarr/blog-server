@@ -10,11 +10,7 @@ import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';
 
 interface ISearchQuery {
   active?: boolean;
-  author?: string;
   categories?: {
-    $in: string[];
-  };
-  keywords?: {
     $in: string[];
   };
   updated?: {
@@ -24,21 +20,11 @@ interface ISearchQuery {
 }
 
 const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
-  const { active, author, after, before, categories, keywords } = query;
+  const { active, after, before, categories } = query;
   const searchQuery: ISearchQuery = { };
 
   if (active) {
     searchQuery.active = active;
-  }
-
-  if (author) {
-    searchQuery.author = author;
-  }
-
-  if (keywords) {
-    searchQuery.keywords = {
-      $in: keywords
-    };
   }
 
   if (categories) {

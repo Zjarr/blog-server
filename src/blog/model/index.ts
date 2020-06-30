@@ -1,1 +1,1 @@
-export { BlogModel, BlogSchema } from './blog.model';
+export * from './blog.model';

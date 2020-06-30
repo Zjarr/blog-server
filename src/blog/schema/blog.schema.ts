@@ -5,13 +5,11 @@ import { ISource } from '../../source/schema';
 export interface IBlog {
   _id?: string;
   active: boolean;
-  author: string;
   body: string;
   categories?: string[];
-  collaborators?: string[];
   created: string;
   description: string;
-  keywords?: string[];
+  image: string;
   slug: string;
   sources?: ISource[];
   title: string;
@@ -22,13 +20,11 @@ export const BaseSchemaBlog = gql`
   type Blog {
     _id: String
     active: Boolean!
-    author: String!
     body: String!
     categories: [ String ]
-    collaborators: [ String ]
     created: String!
     description: String!
-    keywords: [ String ]
+    image: String!
     slug: String!
     sources: [ Source ]
     title: String!
