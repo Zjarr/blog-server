@@ -1,5 +1,4 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
-import { FileUpload } from 'graphql-upload';
 import Moment from 'moment';
 
 import { uploadImage, usersUploadOptions } from '../../../cloud';
@@ -12,9 +11,9 @@ import { conflict, serverError, unauthorized } from '../../utils/values';
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';
 
-export const user = async (_: object, args: { file: FileUpload, user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const user = async (_: object, args: { user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
-    const { file, user } = args;
+    const { user } = args;
     const { session } = ctx;
     const authorized: boolean = await isAuthorized(session);
 
@@ -31,8 +30,8 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
     let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
     let userResult: IUser | null;
 
-    if (file) {
-      uploadResult = await uploadImage(file, usersUploadOptions);
+    if (user.file) {
+      uploadResult = await uploadImage(user.file, usersUploadOptions);
     }
 
     if (user._id) {

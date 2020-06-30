@@ -1,5 +1,4 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
-import { FileUpload } from 'graphql-upload';
 
 import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
 
@@ -11,9 +10,9 @@ import { serverError, unauthorized } from '../../utils/values';
 import { UserModel } from '../model';
 import { IPictureInput, IUser, IUserSuccess } from '../schema';
 
-export const picture = async (_: object, args: { file: FileUpload, picture: IPictureInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const picture = async (_: object, args: { picture: IPictureInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
-    const { file, picture } = args;
+    const { picture } = args;
     const { session } = ctx;
     const authorized: boolean = await isAuthorized(session);
 
@@ -28,8 +27,8 @@ export const picture = async (_: object, args: { file: FileUpload, picture: IPic
       await AdminAPI.delete_resources([unique]);
     }
 
-    if (file) {
-      uploadResult = await uploadImage(file, usersUploadOptions);
+    if (picture.file) {
+      uploadResult = await uploadImage(picture.file, usersUploadOptions);
     }
 
     const userResult: IUser | null = await UserModel.findByIdAndUpdate(picture._id, { picture: uploadResult?.secure_url }, { new: true });

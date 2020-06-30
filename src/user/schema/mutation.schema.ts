@@ -1,7 +1,9 @@
 import { gql } from 'apollo-server-express';
+import { FileUpload } from 'graphql-upload';
 
 export interface IPictureInput {
   _id: string;
+  file?: FileUpload;
   url?: string;
 }
 
@@ -27,6 +29,7 @@ export interface IUserInput {
   about?: string;
   email: string;
   lastname: string;
+  file?: FileUpload;
   name: string;
   password: string;
   social?: ISocialInput[];
@@ -35,6 +38,7 @@ export interface IUserInput {
 export const MutationSchemaUser = gql`
   input PictureInput {
     _id: String!
+    file: Upload
     url: String
   }
 
@@ -60,6 +64,7 @@ export const MutationSchemaUser = gql`
     about: String
     email: String!
     lastname: String!
+    file: Upload
     name: String!
     password: String!
     social: [ SocialInput ]
@@ -68,7 +73,7 @@ export const MutationSchemaUser = gql`
   extend type Mutation {
     login(user: LoginInput!): LoginPayload!
     password(password: PasswordInput!): UserPayload!
-    picture(file: Upload!, picture: PictureInput!): UserPayload!
-    user(file: Upload, user: UserInput): UserPayload!
+    picture(picture: PictureInput!): UserPayload!
+    user(user: UserInput!): UserPayload!
   }
 `;
