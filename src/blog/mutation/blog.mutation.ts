@@ -2,7 +2,6 @@ import Moment from 'moment';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { isAuthorized } from '../../utils/functions';
 import { conflict, serverError, unauthorized } from '../../utils/values';
 
@@ -13,13 +12,7 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
   try {
     const { blog } = args;
     const { session } = ctx;
-    let authorized: boolean;
-
-    if (blog._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_BLOG);
-    } else {
-      authorized = await isAuthorized(session, IPermission.CREATE_BLOG);
-    }
+    const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

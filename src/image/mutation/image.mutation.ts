@@ -2,10 +2,8 @@ import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import { FileUpload } from 'graphql-upload';
 
 import { AdminAPI, assetsUploadOptions, uploadImage } from '../../../cloud';
-
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { getImageUnique, isAuthorized } from '../../utils/functions';
 import { serverError, unauthorized } from '../../utils/values';
 
@@ -16,13 +14,7 @@ export const image = async (_: object, args: { file: FileUpload, image: IImageIn
   try {
     const { file, image } = args;
     const { session } = ctx;
-    let authorized: boolean;
-
-    if (image._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_ASSET);
-    } else {
-      authorized = await isAuthorized(session, IPermission.CREATE_ASSET);
-    }
+    const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

@@ -5,7 +5,6 @@ import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { getImageUnique, isAuthorized } from '../../utils/functions';
 import { serverError, unauthorized } from '../../utils/values';
 
@@ -16,13 +15,7 @@ export const picture = async (_: object, args: { file: FileUpload, picture: IPic
   try {
     const { file, picture } = args;
     const { session } = ctx;
-    let authorized: boolean;
-
-    if (picture._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_USER, picture._id);
-    } else {
-      authorized = await isAuthorized(session, IPermission.CREATE_USER);
-    }
+    const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

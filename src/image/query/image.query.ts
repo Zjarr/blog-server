@@ -1,6 +1,5 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { isAuthorized } from '../../utils/functions';
 import { serverError, unauthorized } from '../../utils/values';
 
@@ -13,7 +12,7 @@ interface ISearchQuery {
 }
 
 const createSearchQuery = (query: IGetImageInput): ISearchQuery => {
-  const searchQuery: ISearchQuery = { };
+  const searchQuery: ISearchQuery = {};
   const { _id, url } = query;
 
   if (_id) {
@@ -30,7 +29,7 @@ const createSearchQuery = (query: IGetImageInput): ISearchQuery => {
 export const image = async (_: object, args: { image: IGetImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, IPermission.VIEW_ASSET);
+    const authorized = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

@@ -6,7 +6,6 @@ import { uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { encrypt, isAuthorized } from '../../utils/functions';
 import { conflict, serverError, unauthorized } from '../../utils/values';
 
@@ -17,13 +16,7 @@ export const user = async (_: object, args: { file: FileUpload, user: IUserInput
   try {
     const { file, user } = args;
     const { session } = ctx;
-    let authorized: boolean;
-
-    if (user._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_USER, user._id);
-    } else {
-      authorized = await isAuthorized(session, IPermission.CREATE_USER);
-    }
+    const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

@@ -42,16 +42,6 @@ import {
   BaseSchemaPagination
 } from './pagination/schema';
 
-import { role as RoleMutation } from './role/mutation';
-import { role as RoleQuery, roles as RolesQuery } from './role/query';
-import {
-  BaseSchemaRole,
-  MutationSchemaRole,
-  QuerySchemaRole,
-  UnionSchemaRole
-} from './role/schema';
-import { RolePayload, RolesPayload } from './role/union';
-
 import {
   BaseSchemaSocial
 } from './social/schema';
@@ -83,7 +73,6 @@ const Mutation = {
   login: LoginMutation,
   password: PasswordMutation,
   picture: PictureMutation,
-  role: RoleMutation,
   user: UserMutation
 };
 
@@ -94,8 +83,6 @@ const Query = {
   category: CategoryQuery,
   image: ImageQuery,
   images: ImagesQuery,
-  role: RoleQuery,
-  roles: RolesQuery,
   system: SystemQuery,
   user: UserQuery,
   users: UsersQuery
@@ -108,7 +95,6 @@ const schemas = [
   BaseSchemaGlobal,
   BaseSchemaImage,
   BaseSchemaPagination,
-  BaseSchemaRole,
   BaseSchemaSocial,
   BaseSchemaSource,
   BaseSchemaSystem,
@@ -117,20 +103,17 @@ const schemas = [
   MutationSchemaBlog,
   MutationSchemaCategory,
   MutationSchemaImage,
-  MutationSchemaRole,
   MutationSchemaUser,
 
   QuerySchemaBlog,
   QuerySchemaCategory,
   QuerySchemaImage,
-  QuerySchemaRole,
   QuerySchemaSystem,
   QuerySchemaUser,
 
   UnionSchemaBlog,
   UnionSchemaCategory,
   UnionSchemaImage,
-  UnionSchemaRole,
   UnionSchemaUser
 ];
 
@@ -142,8 +125,6 @@ const Union = {
   ImagePayload,
   ImagesPayload,
   LoginPayload,
-  RolePayload,
-  RolesPayload,
   UserPayload,
   UsersPayload
 };

@@ -1,6 +1,5 @@
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { IPermission } from '../../role/schema';
 import { isAuthorized } from '../../utils/functions';
 import { conflict, serverError, unauthorized } from '../../utils/values';
 
@@ -11,13 +10,7 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
   try {
     const { category } = args;
     const { session } = ctx;
-    let authorized: boolean;
-
-    if (category._id) {
-      authorized = await isAuthorized(session, IPermission.UPDATE_CATEGORY);
-    } else {
-      authorized = await isAuthorized(session, IPermission.CREATE_CATEGORY);
-    }
+    const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');

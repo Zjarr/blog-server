@@ -3,7 +3,6 @@ import { Document, PaginateResult } from 'mongoose';
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { IPagination } from '../../pagination/schema';
-import { IPermission } from '../../role/schema';
 import { isAuthorized, paginationResult } from '../../utils/functions';
 import { serverError, unauthorized } from '../../utils/values';
 
@@ -15,7 +14,7 @@ interface ISearchQuery {
 }
 
 const createSearchQuery = (query: IGetUsersInput): ISearchQuery => {
-  const searchQuery: ISearchQuery = { };
+  const searchQuery: ISearchQuery = {};
   const { active } = query;
 
   if (active) {
@@ -28,7 +27,7 @@ const createSearchQuery = (query: IGetUsersInput): ISearchQuery => {
 export const users = async (_: object, args: { users: IGetUsersInput }, ctx: IContext): Promise<IUsersSuccess | IError> => {
   try {
     const { session } = ctx;
-    const authorized = await isAuthorized(session, IPermission.VIEW_USER);
+    const authorized = await isAuthorized(session);
 
     if (!authorized) {
       return unauthorized('You are not allowed to perform this action');
