@@ -8,8 +8,9 @@ export interface IContext {
 }
 
 export const context = (ctx: { req: Request }): IContext => {
-  const { req: { headers } } = ctx;
-  const session = verifyJWT(headers.authorization);
+  const { req } = ctx;
+
+  const session = verifyJWT(req.cookies.authorization);
 
   return {
     session

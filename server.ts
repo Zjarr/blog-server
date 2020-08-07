@@ -1,4 +1,5 @@
-import { ApolloServer, OptionsJson, CorsOptions } from 'apollo-server-express';
+import { ApolloServer, CorsOptions, OptionsJson } from 'apollo-server-express';
+import CookieParser from 'cookie-parser';
 import Express from 'express';
 import { Server } from 'http';
 
@@ -12,6 +13,7 @@ import { config } from './src';
  */
 const initServer = (): Server => {
   const server = new ApolloServer({ ...config });
+  const cookieParser = CookieParser();
   const PORT = Env.PORT;
   const app = Express();
 
@@ -20,10 +22,13 @@ const initServer = (): Server => {
   };
 
   const cors: CorsOptions = {
-    origin: Env.CLIENT
+    origin: Env.CLIENT,
+    credentials: true
   };
 
-  server.applyMiddleware({ app, cors, bodyParserConfig });
+  app.use(cookieParser);
+
+  server.applyMiddleware({ app, bodyParserConfig, cors });
 
   /**
    * If there is an error with the initialization it shows the details
