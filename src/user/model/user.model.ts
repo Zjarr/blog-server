@@ -22,17 +22,17 @@ export const UserSchema = new Schema({
     unique: true
   },
 
+  firstname: {
+    required: true,
+    type: String
+  },
+
   image: {
     required: false,
     type: String
   },
 
   lastname: {
-    required: true,
-    type: String
-  },
-
-  name: {
     required: true,
     type: String
   },
