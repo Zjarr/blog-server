@@ -4,7 +4,6 @@ import { IUser } from './user.schema';
 
 export interface ILoginSuccess {
   token: string;
-  user: IUser;
 }
 
 export interface IUserSuccess {
@@ -17,7 +16,6 @@ export const UnionSchemaUser = gql`
 
   type LoginSuccess {
     token: String
-    user: User
   }
 
   type UserSuccess {

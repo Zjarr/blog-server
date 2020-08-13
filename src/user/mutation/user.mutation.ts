@@ -35,8 +35,6 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     }
 
     if (user._id) {
-      delete user.password;
-
       userResult = await UserModel.findByIdAndUpdate(user._id, { ...user }, { new: true });
     } else {
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');

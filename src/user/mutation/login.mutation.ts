@@ -15,18 +15,25 @@ export const login = async (_: object, args: { user: ILoginInput }): Promise<ILo
       return notFound('User does not exist');
     }
 
-    const passwordMatch = decrypt(user.password, userFound.password);
+    const passwordMatch = decrypt(user.password, userFound.password!);
 
     if (!passwordMatch) {
       return forbidden('Password does not match');
     }
 
-    const { email } = userFound;
-    const token: string = createJWT(email);
-    delete user.password;
+    const {
+      _id,
+      about,
+      created,
+      email,
+      firstname,
+      lastname,
+      social
+    } = userFound;
+
+    const token: string = createJWT({ _id, about, created, email, firstname, lastname, social });
 
     return {
-      user: userFound,
       token
     };
   } catch (error) {

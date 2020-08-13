@@ -22,7 +22,7 @@ export const password = async (_: object, args: { password: IPasswordInput }, ct
       return notFound('User does not exist');
     }
 
-    const passwordMatch: boolean = decrypt(password.old, userFound.password);
+    const passwordMatch: boolean = decrypt(password.old, userFound.password!);
 
     if (!passwordMatch) {
       return forbidden('Old password does not match');
