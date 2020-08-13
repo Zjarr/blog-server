@@ -21,8 +21,8 @@ export const login = async (_: object, args: { user: ILoginInput }): Promise<ILo
       return forbidden('Password does not match');
     }
 
-    const { _id, email, lastname, firstname } = userFound;
-    const token: string = createJWT(_id!, email, lastname, firstname);
+    const { email } = userFound;
+    const token: string = createJWT(email);
     delete user.password;
 
     return {
