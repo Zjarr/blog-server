@@ -27,11 +27,12 @@ export const login = async (_: object, args: { user: ILoginInput }): Promise<ILo
       created,
       email,
       firstname,
+      image,
       lastname,
       social
     } = userFound;
 
-    const token: string = createJWT({ _id, about, created, email, firstname, lastname, social });
+    const token: string = createJWT({ _id, about, created, email, firstname, image, lastname, social });
 
     return {
       token

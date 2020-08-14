@@ -10,10 +10,10 @@ export const uploadImage = async (file: FileUpload, options: UploadApiOptions): 
   return new Promise((resolve, reject) => {
     const cloudStream = ImageUploader.upload_stream(options, (error, fileUploaded) => {
       if (error) {
-        reject(error);
+        return reject(error);
       }
 
-      resolve(fileUploaded);
+      return resolve(fileUploaded);
     });
 
     fileStream.pipe(cloudStream);

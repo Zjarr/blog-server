@@ -35,11 +35,11 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     }
 
     if (user._id) {
-      userResult = await UserModel.findByIdAndUpdate(user._id, { ...user }, { new: true });
+      userResult = await UserModel.findByIdAndUpdate(user._id, { ...user, image: uploadResult?.secure_url }, { new: true });
     } else {
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
 
-      user.password = encrypt(user.password);
+      user.password = encrypt(user.password!);
       userResult = await UserModel.create({ ...user, created, image: uploadResult?.secure_url });
     }
 
