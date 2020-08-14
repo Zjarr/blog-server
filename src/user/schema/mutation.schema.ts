@@ -31,7 +31,7 @@ export interface IUserInput {
   file?: FileUpload;
   firstname: string;
   lastname: string;
-  password: string;
+  password?: string;
   social?: ISocialInput[];
 }
 
@@ -66,7 +66,7 @@ export const MutationSchemaUser = gql`
     firstname: String!
     file: Upload
     lastname: String!
-    password: String!
+    password: String
     social: [ SocialInput ]
   }
 
