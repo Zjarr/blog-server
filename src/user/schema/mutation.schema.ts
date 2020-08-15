@@ -18,19 +18,15 @@ export interface IUserSocialInput {
   url: string;
 }
 
-export interface IUserImageInput {
-  file?: FileUpload;
-  remove: boolean;
-}
-
 export interface IUserInput {
   _id?: string;
   about?: string;
   email: string;
-  image?: IUserImageInput;
+  image?: FileUpload;
   firstname: string;
   lastname: string;
   password?: string;
+  picture?: string;
   social?: IUserSocialInput[];
 }
 
@@ -52,19 +48,15 @@ export const MutationSchemaUser = gql`
     url: String!
   }
 
-  input UserImageInput {
-    file: Upload
-    remove: Boolean!
-  }
-
   input UserInput {
     _id: String
     about: String
     email: String!
     firstname: String!
-    image: UserImageInput
+    image: Upload
     lastname: String!
     password: String
+    picture: String
     social: [ UserSocialInput ]
   }
 

@@ -8,9 +8,9 @@ export interface IUser {
   created: string;
   email: string;
   firstname: string;
-  image?: string;
   lastname: string;
   password?: string;
+  picture?: string;
   social?: ISocial[];
 }
 
@@ -21,9 +21,9 @@ export const BaseSchemaUser = gql`
     created: String!
     email: String!
     firstname: String!
-    image: String
     lastname: String!
     password: String
+    picture: String
     social: [ Social ]
   }
 `;
