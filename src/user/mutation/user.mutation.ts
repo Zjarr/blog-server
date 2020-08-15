@@ -30,9 +30,9 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
     let userResult: IUser | null;
 
-    if (user.image) {
-      uploadResult = await uploadImage(user.image, usersUploadOptions);
-      user.picture = uploadResult?.secure_url;
+    if (user.file) {
+      uploadResult = await uploadImage(user.file, usersUploadOptions);
+      user.image = uploadResult?.secure_url;
     }
 
     if (user._id) {

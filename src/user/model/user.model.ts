@@ -27,6 +27,11 @@ export const UserSchema = new Schema({
     type: String
   },
 
+  image: {
+    required: false,
+    type: String
+  },
+
   lastname: {
     required: true,
     type: String
@@ -34,11 +39,6 @@ export const UserSchema = new Schema({
 
   password: {
     required: true,
-    type: String
-  },
-
-  picture: {
-    required: false,
     type: String
   },
 

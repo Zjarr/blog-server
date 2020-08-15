@@ -22,11 +22,11 @@ export interface IUserInput {
   _id?: string;
   about?: string;
   email: string;
-  image?: FileUpload;
+  file?: FileUpload;
   firstname: string;
+  image?: string;
   lastname: string;
   password?: string;
-  picture?: string;
   social?: IUserSocialInput[];
 }
 
@@ -52,11 +52,11 @@ export const MutationSchemaUser = gql`
     _id: String
     about: String
     email: String!
+    file: Upload
     firstname: String!
-    image: Upload
+    image: String
     lastname: String!
     password: String
-    picture: String
     social: [ UserSocialInput ]
   }
 
