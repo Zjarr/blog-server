@@ -21,18 +21,7 @@ export const login = async (_: object, args: { user: IUserLoginInput }): Promise
       return forbidden('Password does not match');
     }
 
-    const {
-      _id,
-      about,
-      created,
-      email,
-      firstname,
-      lastname,
-      picture,
-      social
-    } = userFound;
-
-    const token: string = createJWT({ _id, about, created, email, firstname, picture, lastname, social });
+    const token: string = createJWT(userFound._id!);
 
     return {
       token
