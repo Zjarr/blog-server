@@ -28,19 +28,26 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     }
 
     let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
+    let image: string = userFound?.image || '';
     let userResult: IUser | null;
 
-    if (user.file) {
-      uploadResult = await uploadImage(user.file, usersUploadOptions);
+    if (user.image?.file) {
+      uploadResult = await uploadImage(user.image?.file, usersUploadOptions);
+
+      image = uploadResult?.secure_url;
+    }
+
+    if (user.image?.remove) {
+      image = '';
     }
 
     if (user._id) {
-      userResult = await UserModel.findByIdAndUpdate(user._id, { ...user, image: uploadResult?.secure_url }, { new: true });
+      userResult = await UserModel.findByIdAndUpdate(user._id, { ...user, image }, { new: true });
     } else {
       const created = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
 
       user.password = encrypt(user.password!);
-      userResult = await UserModel.create({ ...user, created, image: uploadResult?.secure_url });
+      userResult = await UserModel.create({ ...user, created, image });
     }
 
     return {

@@ -4,9 +4,9 @@ import { createJWT } from '../../utils/jwt';
 import { forbidden, notFound, serverError } from '../../utils/values';
 
 import { UserModel } from '../model';
-import { ILoginInput, ILoginSuccess, IUser } from '../schema';
+import { ILoginSuccess, IUser, IUserLoginInput } from '../schema';
 
-export const login = async (_: object, args: { user: ILoginInput }): Promise<ILoginSuccess | IError> => {
+export const login = async (_: object, args: { user: IUserLoginInput }): Promise<ILoginSuccess | IError> => {
   try {
     const { user } = args;
     const userFound: IUser | null = await UserModel.findOne({ email: user.email });

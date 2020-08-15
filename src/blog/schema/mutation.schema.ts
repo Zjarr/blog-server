@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-interface ISourceInput {
+interface IBlogSourceInput {
   name: string;
   url: string;
 }
@@ -13,12 +13,12 @@ export interface IBlogInput {
   description: string;
   image: string;
   slug: string;
-  sources?: ISourceInput[];
+  sources?: IBlogSourceInput[];
   title: string;
 }
 
 export const MutationSchemaBlog = gql`
-  input SourceInput {
+  input BlogSourceInput {
     name: String!
     url: String!
   }
@@ -31,7 +31,7 @@ export const MutationSchemaBlog = gql`
     description: String!
     image: String!
     slug: String!
-    sources: [ SourceInput ]
+    sources: [ BlogSourceInput ]
     title: String!
   }
 

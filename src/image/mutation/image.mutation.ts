@@ -19,7 +19,7 @@ export const image = async (_: object, args: { image: IImageInput }, ctx: IConte
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const uploadResult: UploadApiErrorResponse | UploadApiResponse = await uploadImage(image.file, assetsUploadOptions);
+    const uploadResult: UploadApiErrorResponse | UploadApiResponse = await uploadImage(image.image.file, assetsUploadOptions);
     let imageResult: IImage | null;
 
     if (image._id) {
