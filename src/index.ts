@@ -56,7 +56,7 @@ import {
 } from './system/schema';
 import { system as SystemQuery } from './system/query';
 
-import { login as LoginMutation, password as PasswordMutation, picture as PictureMutation, user as UserMutation } from './user/mutation';
+import { login as LoginMutation, password as PasswordMutation, user as UserMutation } from './user/mutation';
 import { user as UserQuery } from './user/query';
 import {
   BaseSchemaUser,
@@ -72,7 +72,6 @@ const Mutation = {
   image: ImageMutation,
   login: LoginMutation,
   password: PasswordMutation,
-  picture: PictureMutation,
   user: UserMutation
 };
 
