@@ -17,7 +17,7 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const userFound: IUser | null = await UserModel.findOne({ _id: user._id });
@@ -49,6 +49,6 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     };
 
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

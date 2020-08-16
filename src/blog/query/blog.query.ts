@@ -34,6 +34,6 @@ export const blog = async (_: object, args: { blog: IGetBlogInput }): Promise<IB
       blog: blogFound
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

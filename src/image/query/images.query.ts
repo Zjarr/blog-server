@@ -30,7 +30,7 @@ export const images = async (_: object, args: { images: IGetImagesInput }, ctx: 
     const authorized = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const { images } = args;
@@ -43,6 +43,6 @@ export const images = async (_: object, args: { images: IGetImagesInput }, ctx: 
       pagination
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

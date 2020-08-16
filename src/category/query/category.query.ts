@@ -34,6 +34,6 @@ export const category = async (_: object, args: { category: IGetCategoryInput })
       category: categoryFound
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

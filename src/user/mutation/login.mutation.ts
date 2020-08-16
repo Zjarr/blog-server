@@ -12,13 +12,13 @@ export const login = async (_: object, args: { user: IUserLoginInput }): Promise
     const userFound: IUser | null = await UserModel.findOne({ email: user.email });
 
     if (!userFound) {
-      return notFound('User does not exist');
+      return notFound('Incorrect user/password combination.');
     }
 
     const passwordMatch = decrypt(user.password, userFound.password!);
 
     if (!passwordMatch) {
-      return forbidden('Password does not match');
+      return forbidden('Password does not match.');
     }
 
     const token: string = createJWT(userFound._id!);
@@ -27,6 +27,6 @@ export const login = async (_: object, args: { user: IUserLoginInput }): Promise
       token
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

@@ -13,14 +13,14 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const formatedName = category.name.trim().toLowerCase();
     const categoryFound: ICategory | null = await CategoryModel.findOne({ name: formatedName });
 
     if (!category._id && categoryFound) {
-      return conflict('Already exists a category with the provided name');
+      return conflict('Already exists a category with the provided name.');
     }
 
     let categoryResult: ICategory | null;
@@ -36,6 +36,6 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     };
 
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

@@ -35,6 +35,6 @@ export const categories = async (_: object, args: { categories: IGetCategoriesIn
       pagination
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

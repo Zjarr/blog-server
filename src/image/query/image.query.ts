@@ -32,7 +32,7 @@ export const image = async (_: object, args: { image: IGetImageInput }, ctx: ICo
     const authorized = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const { image } = args;
@@ -43,6 +43,6 @@ export const image = async (_: object, args: { image: IGetImageInput }, ctx: ICo
       image: imageFound
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

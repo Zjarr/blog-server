@@ -61,6 +61,6 @@ export const blogs = async (_: object, args: { blogs: IGetBlogsInput }): Promise
       pagination
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

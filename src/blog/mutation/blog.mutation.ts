@@ -15,13 +15,13 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
     const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const blogFound: IBlog | null = await BlogModel.findOne({ slug: blog.slug });
 
     if (!blog._id && blogFound) {
-      return conflict('Already exists a blog with the provided slug');
+      return conflict('Already exists a blog with the provided slug.');
     }
 
     const now = Moment().utc().format('YYYY-MM-DDTHH:mm:ss');
@@ -39,6 +39,6 @@ export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext)
     };
 
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

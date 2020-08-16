@@ -13,19 +13,19 @@ export const password = async (_: object, args: { password: IUserPasswordInput }
     const authorized: boolean = await isAuthorized(session);
 
     if (!authorized) {
-      return unauthorized('You are not allowed to perform this action');
+      return unauthorized('You are not allowed to perform this action.');
     }
 
     const userFound: IUser | null = await UserModel.findById(password._id);
 
     if (!userFound) {
-      return notFound('User does not exist');
+      return notFound('User does not exist.');
     }
 
     const passwordMatch: boolean = decrypt(password.old, userFound.password!);
 
     if (!passwordMatch) {
-      return forbidden('Old password does not match');
+      return forbidden('Old password does not match.');
     }
 
     const newPassword: string = encrypt(password.new);
@@ -35,6 +35,6 @@ export const password = async (_: object, args: { password: IUserPasswordInput }
       user: userResult
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };

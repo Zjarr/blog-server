@@ -34,6 +34,6 @@ export const user = async (_: object, args: { user: IGetUserInput }): Promise<IU
       user: userResult
     };
   } catch (error) {
-    return serverError('There was an error with this request. Please try again later');
+    return serverError('There was an error with this request. Please try again later.');
   }
 };
