@@ -1,12 +1,11 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import Moment from 'moment';
 
-import { uploadImage, usersUploadOptions } from '../../../cloud';
-
+import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
-import { encrypt, isAuthorized } from '../../utils/functions';
-import { conflict, serverError, unauthorized } from '../../utils/values';
+import { encrypt, getImageUnique, isAuthorized } from '../../utils/functions';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';
@@ -21,18 +20,19 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
       return unauthorized('You are not allowed to perform this action');
     }
 
-    const userFound: IUser | null = await UserModel.findOne({ email: user.email });
-
-    if (!user._id && userFound) {
-      return conflict('Already exists an user with the provided email');
-    }
-
+    const userFound: IUser | null = await UserModel.findOne({ _id: user._id });
     let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
     let userResult: IUser | null;
 
     if (user.file) {
       uploadResult = await uploadImage(user.file, usersUploadOptions);
       user.image = uploadResult?.secure_url;
+    }
+
+    if (user.file && userFound?.image) {
+      const unique = getImageUnique(userFound?.image, usersUploadOptions.folder);
+
+      await AdminAPI.delete_resources([unique]);
     }
 
     if (user._id) {
