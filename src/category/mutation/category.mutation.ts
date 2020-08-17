@@ -17,7 +17,7 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     }
 
     const formatedName = category.name.trim().toLowerCase();
-    const categoryFound: ICategory | null = await CategoryModel.findOne({ name: formatedName });
+    const categoryFound: ICategory | null = await CategoryModel.findOne({ name: { $regex: `/${formatedName}/i` } });
 
     if (!category._id && categoryFound) {
       return conflict('Already exists a category with the provided name.');
@@ -28,7 +28,7 @@ export const category = async (_: object, args: { category: ICategoryInput }, ct
     if (category._id) {
       categoryResult = await CategoryModel.findByIdAndUpdate(category._id, category, { new: true });
     } else {
-      categoryResult = await CategoryModel.create({ ...category, name: formatedName });
+      categoryResult = await CategoryModel.create({ ...category });
     }
 
     return {
