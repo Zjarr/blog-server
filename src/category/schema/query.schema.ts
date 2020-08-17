@@ -4,6 +4,7 @@ import { IPaginationInput } from '../../pagination/schema';
 
 export interface IGetCategoriesInput {
   active?: boolean;
+  name?: string;
   pagination: IPaginationInput;
 }
 
@@ -15,6 +16,7 @@ export interface IGetCategoryInput {
 export const QuerySchemaCategory = gql`
   input GetCategoriesInput {
     active: Boolean
+    name: String
     pagination: PaginationInput!
   }
 

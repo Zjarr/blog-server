@@ -23,7 +23,7 @@ const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
   const { active, after, before, categories } = query;
   const searchQuery: ISearchQuery = { };
 
-  if (active) {
+  if (active || active === false) {
     searchQuery.active = active;
   }
 

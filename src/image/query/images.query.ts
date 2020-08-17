@@ -17,7 +17,7 @@ const createSearchQuery = (query: IGetImagesInput): ISearchQuery => {
   const searchQuery: ISearchQuery = {};
   const { active } = query;
 
-  if (active) {
+  if (active || active === false) {
     searchQuery.active = active;
   }
 

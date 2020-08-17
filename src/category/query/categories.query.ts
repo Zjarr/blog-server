@@ -10,14 +10,23 @@ import { ICategoriesSuccess, ICategory, IGetCategoriesInput } from '../schema';
 
 interface ISearchQuery {
   active?: boolean;
+  name?: {
+    $regex: RegExp;
+  };
 }
 
 const createSearchQuery = (query: IGetCategoriesInput): ISearchQuery => {
-  const searchQuery: ISearchQuery = { };
-  const { active } = query;
+  const searchQuery: ISearchQuery = {};
+  const { active, name } = query;
 
-  if (active) {
+  if (active || active === false) {
     searchQuery.active = active;
+  }
+
+  if (name) {
+    searchQuery.name = {
+      $regex: new RegExp(`${name}`, 'i')
+    };
   }
 
   return searchQuery;
