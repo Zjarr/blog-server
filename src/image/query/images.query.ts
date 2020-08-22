@@ -11,14 +11,23 @@ import { IGetImagesInput, IImage, IImagesSuccess } from '../schema';
 
 interface ISearchQuery {
   active?: boolean;
+  name?: {
+    $regex: RegExp;
+  };
 }
 
 const createSearchQuery = (query: IGetImagesInput): ISearchQuery => {
   const searchQuery: ISearchQuery = {};
-  const { active } = query;
+  const { active, name } = query;
 
   if (active || active === false) {
     searchQuery.active = active;
+  }
+
+  if (name) {
+    searchQuery.name = {
+      $regex: new RegExp(`${name}`, 'i')
+    };
   }
 
   return searchQuery;
