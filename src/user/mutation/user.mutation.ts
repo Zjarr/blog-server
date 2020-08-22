@@ -2,6 +2,7 @@ import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import Moment from 'moment';
 
 import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
+
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { encrypt, getImageUnique, isAuthorized } from '../../utils/functions';
@@ -30,7 +31,7 @@ export const user = async (_: object, args: { user: IUserInput }, ctx: IContext)
     }
 
     if (user.file && userFound?.image) {
-      const unique = getImageUnique(userFound?.image, usersUploadOptions.folder);
+      const unique = getImageUnique(userFound.image, usersUploadOptions.folder);
 
       await AdminAPI.delete_resources([unique]);
     }
