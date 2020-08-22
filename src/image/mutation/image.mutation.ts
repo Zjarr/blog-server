@@ -1,10 +1,11 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 
 import { AdminAPI, assetsUploadOptions, uploadImage } from '../../../cloud';
+
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { getImageUnique, isAuthorized } from '../../utils/functions';
-import { serverError, unauthorized } from '../../utils/values';
+import { badRequest, serverError, unauthorized } from '../../utils/values';
 
 import { ImageModel } from '../model';
 import { IImage, IImageInput, IImageSuccess } from '../schema';
@@ -19,22 +20,29 @@ export const image = async (_: object, args: { image: IImageInput }, ctx: IConte
       return unauthorized('You are not allowed to perform this action.');
     }
 
-    const uploadResult: UploadApiErrorResponse | UploadApiResponse = await uploadImage(image.image.file, assetsUploadOptions);
+    const imageFound: IImage | null = await ImageModel.findOne({ _id: image._id });
+    let uploadResult: UploadApiErrorResponse | UploadApiResponse | null = null;
     let imageResult: IImage | null;
 
+    if (!image.url && !image.file) {
+      return badRequest(`Image's url or file params are missing.`);
+    }
+
+    if (image.file) {
+      uploadResult = await uploadImage(image.file, assetsUploadOptions);
+      image.url = uploadResult?.secure_url;
+    }
+
+    if (image.file && imageFound?.url) {
+      const unique = getImageUnique(imageFound.url, assetsUploadOptions.folder);
+
+      await AdminAPI.delete_resources([unique]);
+    }
+
     if (image._id) {
-      const updateQuery: IImageInput = image;
-
-      if (image.url) {
-        const unique = getImageUnique(image.url, assetsUploadOptions.folder);
-
-        await AdminAPI.delete_resources([unique]);
-        updateQuery.url = uploadResult?.secure_url;
-      }
-
-      imageResult = await ImageModel.findByIdAndUpdate(image._id, updateQuery, { new: true });
+      imageResult = await ImageModel.findByIdAndUpdate(image._id, { ...image }, { new: true });
     } else {
-      imageResult = await ImageModel.create({ ...image, url: uploadResult?.secure_url });
+      imageResult = await ImageModel.create({ ...image, url: image.url! });
     }
 
     return {
