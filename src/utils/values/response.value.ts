@@ -2,6 +2,7 @@ import { IError } from '../../error/schema';
 
 const codes = {
   // 4xx Client error
+  400: { code: 400, status: 'Bad Request' },
   401: { code: 401, status: 'Unauthorized' },
   403: { code: 403, status: 'Forbidden' },
   404: { code: 404, status: 'Not Found' },
@@ -20,6 +21,11 @@ const formatError = (error: { status: string; code: number }, message?: string):
     }
   };
 };
+
+export const badRequest= (message?: string): IError => formatError(
+  codes['400'],
+  message
+);
 
 export const unauthorized = (message?: string): IError => formatError(
   codes['401'],
