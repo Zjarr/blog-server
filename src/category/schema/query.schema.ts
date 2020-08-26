@@ -10,7 +10,6 @@ export interface IGetCategoriesInput {
 
 export interface IGetCategoryInput {
   _id?: string;
-  name?: string;
 }
 
 export const QuerySchemaCategory = gql`
@@ -22,7 +21,6 @@ export const QuerySchemaCategory = gql`
 
   input GetCategoryInput {
     _id: String
-    name: String
   }
 
   extend type Query {

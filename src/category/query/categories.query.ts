@@ -19,7 +19,7 @@ const createSearchQuery = (query: IGetCategoriesInput): ISearchQuery => {
   const searchQuery: ISearchQuery = {};
   const { active, name } = query;
 
-  if (active || active === false) {
+  if (active !== undefined) {
     searchQuery.active = active;
   }
 
