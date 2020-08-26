@@ -1,4 +1,5 @@
 import { IError } from '../../error/schema';
+import { isId } from '../../utils/functions';
 import { serverError } from '../../utils/values';
 
 import { UserModel } from '../model';
@@ -6,27 +7,33 @@ import { IGetUserInput, IUser, IUserSuccess } from '../schema';
 
 interface ISearchQuery {
   _id?: string;
-  email?: string;
 }
 
 const createSearchQuery = (query: IGetUserInput): ISearchQuery => {
   const searchQuery: ISearchQuery = {};
-  const { _id, email } = query;
+  const { _id } = query;
 
   if (_id) {
     searchQuery._id = _id;
   }
 
-  if (email) {
-    searchQuery.email = email;
-  }
-
   return searchQuery;
+};
+
+const userNull = (): IUserSuccess => {
+  return {
+    user: null
+  };
 };
 
 export const user = async (_: object, args: { user: IGetUserInput }): Promise<IUserSuccess | IError> => {
   try {
     const { user } = args;
+
+    if (user._id && !isId(user._id)) {
+      return userNull();
+    }
+
     const searchQuery: ISearchQuery = createSearchQuery(user);
     const userResult: IUser | null = await UserModel.findOne(searchQuery);
 
