@@ -13,36 +13,19 @@ interface ISearchQuery {
   categories?: {
     $in: string[];
   };
-  updated?: {
-    $gte?: string;
-    $lte?: string;
-  };
 }
 
 const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
-  const { active, after, before, categories } = query;
-  const searchQuery: ISearchQuery = { };
+  const { active, categories } = query;
+  const searchQuery: ISearchQuery = {};
 
-  if (active || active === false) {
+  if (active !== undefined) {
     searchQuery.active = active;
   }
 
   if (categories) {
     searchQuery.categories = {
       $in: categories
-    };
-  }
-
-  if (after) {
-    searchQuery.updated = {
-      $gte: after
-    };
-  }
-
-  if (before) {
-    searchQuery.updated = {
-      ...searchQuery.updated,
-      $lte: before
     };
   }
 

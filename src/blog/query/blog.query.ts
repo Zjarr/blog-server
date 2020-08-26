@@ -1,4 +1,6 @@
 import { IError } from '../../error/schema';
+
+import { isId } from '../../utils/functions';
 import { serverError } from '../../utils/values';
 
 import { BlogModel } from '../model';
@@ -10,7 +12,7 @@ interface ISearchQuery {
 }
 
 const createSearchQuery = (query: IGetBlogInput): ISearchQuery => {
-  const searchQuery: ISearchQuery = { };
+  const searchQuery: ISearchQuery = {};
   const { _id, slug } = query;
 
   if (_id) {
@@ -24,9 +26,20 @@ const createSearchQuery = (query: IGetBlogInput): ISearchQuery => {
   return searchQuery;
 };
 
+const nullBlog = (): IBlogSuccess => {
+  return {
+    blog: null
+  };
+};
+
 export const blog = async (_: object, args: { blog: IGetBlogInput }): Promise<IBlogSuccess | IError> => {
   try {
     const { blog } = args;
+
+    if (blog._id && !isId(blog._id)) {
+      return nullBlog();
+    }
+
     const searchQuery: ISearchQuery = createSearchQuery(blog);
     const blogFound: IBlog | null = await BlogModel.findOne(searchQuery);
 
