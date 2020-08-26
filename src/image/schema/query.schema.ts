@@ -4,7 +4,6 @@ import { IPaginationInput } from '../../pagination/schema';
 
 export interface IGetImageInput {
   _id?: string;
-  url?: string;
 }
 
 export interface IGetImagesInput {
@@ -16,7 +15,6 @@ export interface IGetImagesInput {
 export const QuerySchemaImage = gql`
   input GetImageInput {
     _id: String
-    name: String
   }
 
   input GetImagesInput {
