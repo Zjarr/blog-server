@@ -25,7 +25,7 @@ export const image = async (_: object, args: { image: IImageInput }, ctx: IConte
     let imageResult: IImage | null;
 
     if (!image.url && !image.file) {
-      return badRequest(`Image's url or file params are missing.`);
+      return badRequest(`Image file is required.`);
     }
 
     if (image.file) {
