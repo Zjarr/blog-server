@@ -10,7 +10,7 @@ export interface IGetBlogInput {
 export interface IGetBlogsInput {
   active?: boolean;
   name?: String;
-  categories?: string[];
+  category?: string;
   pagination?: IPaginationInput;
 }
 
@@ -23,7 +23,7 @@ export const QuerySchemaBlog = gql`
   input GetBlogsInput {
     active: Boolean
     name: String
-    categories: [String]
+    category: String
     pagination: PaginationInput
   }
 

@@ -10,23 +10,19 @@ import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';
 
 interface ISearchQuery {
   active?: boolean;
-  categories?: {
-    $in: string[];
-  };
+  categories?: string;
 }
 
 const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
-  const { active, categories } = query;
+  const { active, category } = query;
   const searchQuery: ISearchQuery = {};
 
   if (active !== undefined) {
     searchQuery.active = active;
   }
 
-  if (categories) {
-    searchQuery.categories = {
-      $in: categories
-    };
+  if (category) {
+    searchQuery.categories = category;
   }
 
   return searchQuery;
