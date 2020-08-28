@@ -9,7 +9,7 @@ export interface IGetImageInput {
 export interface IGetImagesInput {
   active?: boolean;
   name?: string;
-  pagination: IPaginationInput;
+  pagination?: IPaginationInput;
 }
 
 export const QuerySchemaImage = gql`
@@ -20,7 +20,7 @@ export const QuerySchemaImage = gql`
   input GetImagesInput {
     active: Boolean
     name: String
-    pagination: PaginationInput!
+    pagination: PaginationInput
   }
 
   extend type Query {
