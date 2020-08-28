@@ -10,9 +10,9 @@ export interface IBlog {
   created: string;
   description: string;
   image: string;
+  name: string;
   slug: string;
   sources?: ISource[];
-  title: string;
   updated: string;
 }
 
@@ -25,9 +25,9 @@ export const BaseSchemaBlog = gql`
     created: String!
     description: String!
     image: String!
+    name: String!
     slug: String!
     sources: [ Source ]
-    title: String!
     updated: String!
   }
 `;

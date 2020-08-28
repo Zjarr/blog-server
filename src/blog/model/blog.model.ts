@@ -38,6 +38,11 @@ export const BlogSchema = new Schema({
     type: String
   },
 
+  name: {
+    required: true,
+    type: String
+  },
+
   slug: {
     required: true,
     type: String,
@@ -48,11 +53,6 @@ export const BlogSchema = new Schema({
     required: false,
     type: SourceSchema
   }],
-
-  title: {
-    required: true,
-    type: String
-  },
 
   updated: {
     required: true,

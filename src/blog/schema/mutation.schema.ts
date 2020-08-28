@@ -12,9 +12,9 @@ export interface IBlogInput {
   categories?: string[];
   description: string;
   image: string;
+  name: string;
   slug: string;
   sources?: IBlogSourceInput[];
-  title: string;
 }
 
 export const MutationSchemaBlog = gql`
@@ -30,9 +30,9 @@ export const MutationSchemaBlog = gql`
     categories: [ String ]
     description: String!
     image: String!
+    name: String!
     slug: String!
     sources: [ BlogSourceInput ]
-    title: String!
   }
 
   extend type Mutation {
