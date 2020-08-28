@@ -22,14 +22,14 @@ export const password = async (_: object, args: { password: IUserPasswordInput }
       return notFound('User does not exist.');
     }
 
-    const passwordMatch: boolean = decrypt(password.old, userFound.password!);
+    const passwordMatch: boolean = decrypt(password.current, userFound.password!);
 
     if (!passwordMatch) {
       return forbidden('Old password does not match.');
     }
 
-    const newPassword: string = encrypt(password.new);
-    const userResult: IUser | null = await UserModel.findByIdAndUpdate(userFound._id, { password: newPassword }, { new: true });
+    const updatedPassword: string = encrypt(password.updated);
+    const userResult: IUser | null = await UserModel.findByIdAndUpdate(userFound._id, { password: updatedPassword }, { new: true });
 
     return {
       user: userResult

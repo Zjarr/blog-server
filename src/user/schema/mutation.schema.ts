@@ -8,8 +8,8 @@ export interface IUserLoginInput {
 
 export interface IUserPasswordInput {
   _id: string;
-  old: string;
-  new: string;
+  current: string;
+  updated: string;
 }
 
 export interface IUserSocialInput {
@@ -38,8 +38,8 @@ export const MutationSchemaUser = gql`
 
   input UserPasswordInput {
     _id: String!
-    old: String!
-    new: String!
+    current: String!
+    updated: String!
   }
 
   input UserSocialInput {
