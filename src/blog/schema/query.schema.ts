@@ -9,7 +9,7 @@ export interface IGetBlogInput {
 
 export interface IGetBlogsInput {
   active?: boolean;
-  name?: String;
+  name?: string;
   category?: string;
   pagination?: IPaginationInput;
 }

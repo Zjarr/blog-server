@@ -11,10 +11,13 @@ import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';
 interface ISearchQuery {
   active?: boolean;
   categories?: string;
+  name?: {
+    $regex: RegExp;
+  };
 }
 
 const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
-  const { active, category } = query;
+  const { active, category, name } = query;
   const searchQuery: ISearchQuery = {};
 
   if (active !== undefined) {
@@ -23,6 +26,12 @@ const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
 
   if (category) {
     searchQuery.categories = category;
+  }
+
+  if (name) {
+    searchQuery.name = {
+      $regex: new RegExp(`${name}`, 'i')
+    };
   }
 
   return searchQuery;
