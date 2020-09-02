@@ -25,7 +25,7 @@ export const BlogSchema = new Schema({
 
   created: {
     required: true,
-    type: String
+    type: Date
   },
 
   description: {
@@ -56,7 +56,7 @@ export const BlogSchema = new Schema({
 
   updated: {
     required: true,
-    type: String
+    type: Date
   }
 });
 

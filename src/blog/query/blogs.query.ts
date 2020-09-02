@@ -1,9 +1,10 @@
+import Moment from 'moment';
 import { Document, PaginateResult } from 'mongoose';
 
 import { IError } from '../../error/schema';
 import { IPagination } from '../../pagination/schema';
 import { paginationResult } from '../../utils/functions';
-import { serverError } from '../../utils/values';
+import { DEFAULT_DATE_FORMAT, serverError } from '../../utils/values';
 
 import { BlogModel } from '../model';
 import { IBlog, IBlogsSuccess, IGetBlogsInput } from '../schema';
@@ -14,10 +15,13 @@ interface ISearchQuery {
   name?: {
     $regex: RegExp;
   };
+  updated?: {
+    $gte: Date;
+  };
 }
 
 const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
-  const { active, category, name } = query;
+  const { active, category, name, updated } = query;
   const searchQuery: ISearchQuery = {};
 
   if (active !== undefined) {
@@ -31,6 +35,12 @@ const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
   if (name) {
     searchQuery.name = {
       $regex: new RegExp(`${name}`, 'i')
+    };
+  }
+
+  if (updated) {
+    searchQuery.updated = {
+      $gte: new Date(Moment().utc().subtract(updated, 'd').format(DEFAULT_DATE_FORMAT))
     };
   }
 

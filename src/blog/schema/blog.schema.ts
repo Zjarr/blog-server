@@ -7,13 +7,13 @@ export interface IBlog {
   active: boolean;
   body: string;
   categories?: string[];
-  created: string;
+  created: Date;
   description: string;
   image: string;
   name: string;
   slug: string;
   sources?: ISource[];
-  updated: string;
+  updated: Date;
 }
 
 export const BaseSchemaBlog = gql`
@@ -22,12 +22,12 @@ export const BaseSchemaBlog = gql`
     active: Boolean!
     body: String!
     categories: [ String ]
-    created: String!
+    created: Date!
     description: String!
     image: String!
     name: String!
     slug: String!
     sources: [ Source ]
-    updated: String!
+    updated: Date!
   }
 `;
