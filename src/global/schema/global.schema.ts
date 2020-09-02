@@ -4,5 +4,6 @@ export const BaseSchemaGlobal = gql`
   type Mutation
   type Query
 
+  scalar Date
   scalar Upload
 `;
