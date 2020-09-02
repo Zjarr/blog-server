@@ -5,7 +5,7 @@ import { ISocial } from '../../social/schema';
 export interface IUser {
   _id?: string;
   about?: string;
-  created: string;
+  created: Date;
   email: string;
   firstname: string;
   image?: string;
@@ -18,7 +18,7 @@ export const BaseSchemaUser = gql`
   type User {
     _id: String
     about: String
-    created: String!
+    created: Date!
     email: String!
     firstname: String!
     image: String

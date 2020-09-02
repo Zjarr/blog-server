@@ -13,7 +13,7 @@ export const UserSchema = new Schema({
 
   created: {
     required: true,
-    type: String
+    type: Date
   },
 
   email: {
