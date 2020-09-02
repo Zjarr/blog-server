@@ -1,7 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 interface IPaginationSortInput {
-  name: number;
+  name?: number;
+  updated?: number;
 }
 
 export interface IPaginationInput {
@@ -20,7 +21,8 @@ export interface IPagination {
 
 export const BaseSchemaPagination = gql`
   input PaginationSortInput {
-    name: Int!
+    name: Int
+    updated: Int
   }
 
   input PaginationInput {
