@@ -12,7 +12,6 @@ export interface IGetBlogsInput {
   category?: string;
   name?: string;
   pagination?: IPaginationInput;
-  updated?: number;
 }
 
 export const QuerySchemaBlog = gql`
@@ -26,7 +25,6 @@ export const QuerySchemaBlog = gql`
     category: String
     name: String
     pagination: PaginationInput
-    updated: Int
   }
 
   extend type Query {
