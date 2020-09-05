@@ -1,69 +1,30 @@
 import { makeExecutableSchema } from 'apollo-server-express';
 
-import { blog as BlogMutation } from './blog/mutation';
-import { blog as BlogQuery, blogs as BlogsQuery } from './blog/query';
-import {
-  BaseSchemaBlog,
-  MutationSchemaBlog,
-  QuerySchemaBlog,
-  UnionSchemaBlog
-} from './blog/schema';
+import { Env } from '../env';
+
+import { blog as BlogMutation } from './blog/mutations';
+import { blog as BlogQuery, blogs as BlogsQuery } from './blog/queries';
+import { BaseSchemaBlog, MutationSchemaBlog, QuerySchemaBlog, UnionSchemaBlog } from './blog/schema';
 import { BlogPayload, BlogsPayload } from './blog/union';
-
-import { category as CategoryMutation } from './category/mutation';
-import { categories as CategoriesQuery, category as CategoryQuery } from './category/query';
-import {
-  BaseSchemaCategory,
-  MutationSchemaCategory,
-  QuerySchemaCategory,
-  UnionSchemaCategory
-} from './category/schema';
+import { category as CategoryMutation } from './category/mutations';
+import { categories as CategoriesQuery, category as CategoryQuery } from './category/queries';
+import { BaseSchemaCategory, MutationSchemaCategory, QuerySchemaCategory, UnionSchemaCategory } from './category/schema';
 import { CategoriesPayload, CategoryPayload } from './category/union';
-
-import {
-  BaseSchemaError
-} from './error/schema';
-
-import { image as ImageMutation } from './image/mutation';
-import { image as ImageQuery, images as ImagesQuery } from './image/query';
-import {
-  BaseSchemaImage,
-  MutationSchemaImage,
-  QuerySchemaImage,
-  UnionSchemaImage
-} from './image/schema';
+import { context } from './context';
+import { BaseSchemaError } from './error/schema';
+import { BaseSchemaGlobal } from './global/schema';
+import { image as ImageMutation } from './image/mutations';
+import { image as ImageQuery, images as ImagesQuery } from './image/queries';
+import { BaseSchemaImage, MutationSchemaImage, QuerySchemaImage, UnionSchemaImage } from './image/schema';
 import { ImagePayload, ImagesPayload } from './image/union';
-
-import {
-  BaseSchemaGlobal
-} from './global/schema';
-
-import {
-  BaseSchemaPagination
-} from './pagination/schema';
-
-import {
-  BaseSchemaSocial
-} from './social/schema';
-
-import {
-  BaseSchemaSource
-} from './source/schema';
-
-import {
-  BaseSchemaSystem,
-  QuerySchemaSystem
-} from './system/schema';
-import { system as SystemQuery } from './system/query';
-
-import { login as LoginMutation, password as PasswordMutation, user as UserMutation } from './user/mutation';
-import { user as UserQuery } from './user/query';
-import {
-  BaseSchemaUser,
-  MutationSchemaUser,
-  QuerySchemaUser,
-  UnionSchemaUser
-} from './user/schema';
+import { BaseSchemaPagination } from './pagination/schema';
+import { BaseSchemaSocial } from './social/schema';
+import { BaseSchemaSource } from './source/schema';
+import { system as SystemQuery } from './system/queries';
+import { BaseSchemaSystem, QuerySchemaSystem } from './system/schema';
+import { login as LoginMutation, password as PasswordMutation, user as UserMutation } from './user/mutations';
+import { user as UserQuery } from './user/queries';
+import { BaseSchemaUser, MutationSchemaUser, QuerySchemaUser, UnionSchemaUser } from './user/schema';
 import { LoginPayload, UserPayload } from './user/union';
 
 const Mutation = {
@@ -131,9 +92,6 @@ const resolvers = {
   Query,
   ...Union
 };
-
-import { Env } from '../env';
-import { context } from './context';
 
 const executableSchema = makeExecutableSchema({ typeDefs: schemas, resolvers });
 const playground = Env.PLAYGROUND === 'true' ? true : false;
