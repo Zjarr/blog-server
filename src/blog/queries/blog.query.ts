@@ -32,7 +32,7 @@ const nullBlog = (): IBlogSuccess => {
   };
 };
 
-export const blog = async (_: object, args: { blog: IGetBlogInput }): Promise<IBlogSuccess | IError> => {
+export const blog = async (_parent: object, args: { blog: IGetBlogInput }): Promise<IBlogSuccess | IError> => {
   try {
     const { blog } = args;
 

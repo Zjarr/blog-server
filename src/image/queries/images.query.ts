@@ -33,7 +33,7 @@ const createSearchQuery = (query: IGetImagesInput): ISearchQuery => {
   return searchQuery;
 };
 
-export const images = async (_: object, args: { images: IGetImagesInput }, ctx: IContext): Promise<IImagesSuccess | IError> => {
+export const images = async (_parent: object, args: { images: IGetImagesInput }, ctx: IContext): Promise<IImagesSuccess | IError> => {
   try {
     const { session } = ctx;
     const authorized = await isAuthorized(session);

@@ -40,7 +40,7 @@ const createSearchQuery = (query: IGetBlogsInput): ISearchQuery => {
   return searchQuery;
 };
 
-export const blogs = async (_: object, args: { blogs: IGetBlogsInput }): Promise<IBlogsSuccess | IError> => {
+export const blogs = async (_parent: object, args: { blogs: IGetBlogsInput }): Promise<IBlogsSuccess | IError> => {
   try {
     const { blogs } = args;
     const searchQuery: ISearchQuery = createSearchQuery(blogs);

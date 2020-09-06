@@ -11,7 +11,7 @@ import { DEFAULT_DATE_FORMAT, serverError, unauthorized } from '../../utils/valu
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';
 
-export const user = async (_: object, args: { user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const user = async (_parent: object, args: { user: IUserInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
     const { user } = args;
     const { session } = ctx;

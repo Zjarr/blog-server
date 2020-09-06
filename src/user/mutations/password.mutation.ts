@@ -6,7 +6,7 @@ import { forbidden, notFound, serverError, unauthorized } from '../../utils/valu
 import { UserModel } from '../model';
 import { IUser, IUserPasswordInput, IUserSuccess } from '../schema';
 
-export const password = async (_: object, args: { password: IUserPasswordInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
+export const password = async (_parent: object, args: { password: IUserPasswordInput }, ctx: IContext): Promise<IUserSuccess | IError> => {
   try {
     const { password } = args;
     const { session } = ctx;

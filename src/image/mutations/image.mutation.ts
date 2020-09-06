@@ -10,7 +10,7 @@ import { badRequest, serverError, unauthorized } from '../../utils/values';
 import { ImageModel } from '../model';
 import { IImage, IImageInput, IImageSuccess } from '../schema';
 
-export const image = async (_: object, args: { image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
+export const image = async (_parent: object, args: { image: IImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
     const { image } = args;
     const { session } = ctx;

@@ -28,7 +28,7 @@ const imageNull = (): IImageSuccess => {
   };
 };
 
-export const image = async (_: object, args: { image: IGetImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
+export const image = async (_parent: object, args: { image: IGetImageInput }, ctx: IContext): Promise<IImageSuccess | IError> => {
   try {
     const { session } = ctx;
     const authorized = await isAuthorized(session);

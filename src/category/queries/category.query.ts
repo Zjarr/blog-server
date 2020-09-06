@@ -26,7 +26,7 @@ const nullCategory = (): ICategorySuccess => {
   };
 };
 
-export const category = async (_: object, args: { category: IGetCategoryInput }): Promise<ICategorySuccess | IError> => {
+export const category = async (_parent: object, args: { category: IGetCategoryInput }): Promise<ICategorySuccess | IError> => {
   try {
     const { category } = args;
 

@@ -26,7 +26,7 @@ const userNull = (): IUserSuccess => {
   };
 };
 
-export const user = async (_: object, args: { user: IGetUserInput }): Promise<IUserSuccess | IError> => {
+export const user = async (_parent: object, args: { user: IGetUserInput }): Promise<IUserSuccess | IError> => {
   try {
     const { user } = args;
 

@@ -8,7 +8,7 @@ import { conflict, DEFAULT_DATE_FORMAT, serverError, unauthorized } from '../../
 import { BlogModel } from '../model';
 import { IBlog, IBlogInput, IBlogSuccess } from '../schema';
 
-export const blog = async (_: object, args: { blog: IBlogInput }, ctx: IContext): Promise<IBlogSuccess | IError> => {
+export const blog = async (_parent: object, args: { blog: IBlogInput }, ctx: IContext): Promise<IBlogSuccess | IError> => {
   try {
     const { blog } = args;
     const { session } = ctx;

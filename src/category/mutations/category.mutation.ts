@@ -6,7 +6,7 @@ import { conflict, serverError, unauthorized } from '../../utils/values';
 import { CategoryModel } from '../model';
 import { ICategory, ICategoryInput, ICategorySuccess } from '../schema';
 
-export const category = async (_: object, args: { category: ICategoryInput }, ctx: IContext): Promise<ICategorySuccess | IError> => {
+export const category = async (_parent: object, args: { category: ICategoryInput }, ctx: IContext): Promise<ICategorySuccess | IError> => {
   try {
     const { category } = args;
     const { session } = ctx;

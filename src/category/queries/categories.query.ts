@@ -32,7 +32,7 @@ const createSearchQuery = (query: IGetCategoriesInput): ISearchQuery => {
   return searchQuery;
 };
 
-export const categories = async (_: object, args: { categories: IGetCategoriesInput }): Promise<ICategoriesSuccess | IError> => {
+export const categories = async (_parent: object, args: { categories: IGetCategoriesInput }): Promise<ICategoriesSuccess | IError> => {
   try {
     const { categories } = args;
     const searchQuery: ISearchQuery = createSearchQuery(categories);
