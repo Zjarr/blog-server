@@ -4,6 +4,7 @@ import { isAuthorized } from '../../utils/functions';
 import { unauthorized } from '../../utils/values';
 
 import { IBlogAmountSuccess } from '../schema';
+import { BlogModel } from '../model';
 
 export const blogsAmount = async (_parent: object, _args: object, ctx: IContext): Promise<IBlogAmountSuccess | IError> => {
   const { session } = ctx;
@@ -13,9 +14,11 @@ export const blogsAmount = async (_parent: object, _args: object, ctx: IContext)
     return unauthorized('You are not allowed to perform this action.');
   }
 
+  const blogsAmount: number = await BlogModel.countDocuments({});
+
   return {
     blogs: {
-      count: 0
+      count: blogsAmount
     }
   };
 };
