@@ -4,6 +4,19 @@ import { IPagination } from '../../pagination/schema';
 
 import { IBlog } from './blog.schema';
 
+interface IBlogsReport {
+  day: string;
+  blogs: IBlog[];
+}
+
+interface IBlogsCount {
+  count: number;
+}
+
+export interface IBlogAmountSuccess {
+  blogs: IBlogsCount;
+}
+
 export interface IBlogSuccess {
   blog: IBlog | null;
 }
@@ -13,9 +26,28 @@ export interface IBlogsSuccess {
   pagination: IPagination;
 }
 
+export interface IBlogsWeekSuccess {
+  report: IBlogsReport[];
+}
+
 export const UnionSchemaBlog = gql`
   union BlogPayload = BlogSuccess | Error
+  union BlogsAmountPayload = BlogsAmountSuccess | Error
   union BlogsPayload = BlogsSuccess | Error
+  union BlogsWeekPayload = BlogsWeekSuccess | Error
+
+  type BlogsReport {
+    day: String!
+    blogs: [ Blog ]
+  }
+
+  type BlogsCount {
+    count: Int!
+  }
+
+  type BlogsAmountSuccess {
+    blogs: BlogsCount
+  }
 
   type BlogSuccess {
     blog: Blog
@@ -24,5 +56,9 @@ export const UnionSchemaBlog = gql`
   type BlogsSuccess {
     blogs: [ Blog ]
     pagination: Pagination!
+  }
+
+  type BlogsWeekSuccess {
+    report: [ BlogsReport ]
   }
 `;

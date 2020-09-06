@@ -14,6 +14,10 @@ export interface IGetBlogsInput {
   pagination?: IPaginationInput;
 }
 
+export interface IGetBlogsLastTwoInput {
+  active: boolean;
+}
+
 export const QuerySchemaBlog = gql`
   input GetBlogInput {
     _id: String
@@ -27,8 +31,15 @@ export const QuerySchemaBlog = gql`
     pagination: PaginationInput
   }
 
+  input GetBlogsLastTwoInput {
+    active: Boolean!
+  }
+
   extend type Query {
     blog(blog: GetBlogInput!): BlogPayload!
     blogs(blogs: GetBlogsInput!): BlogsPayload!
+    blogsAmount: BlogsAmountPayload!
+    blogsLastTwo(blog: GetBlogsLastTwoInput!): BlogsPayload!
+    blogsWeek: BlogsWeekPayload!
   }
 `;

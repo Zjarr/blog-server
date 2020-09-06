@@ -3,9 +3,9 @@ import { makeExecutableSchema } from 'apollo-server-express';
 import { Env } from '../env';
 
 import { blog as BlogMutation } from './blog/mutations';
-import { blog as BlogQuery, blogs as BlogsQuery } from './blog/queries';
+import { blog as BlogQuery, blogs as BlogsQuery, blogsAmount, blogsLastTwo, blogsWeek } from './blog/queries';
 import { BaseSchemaBlog, MutationSchemaBlog, QuerySchemaBlog, UnionSchemaBlog } from './blog/schema';
-import { BlogPayload, BlogsPayload } from './blog/union';
+import { BlogPayload, BlogsAmountPayload, BlogsPayload, BlogsWeekPayload } from './blog/union';
 import { category as CategoryMutation } from './category/mutations';
 import { categories as CategoriesQuery, category as CategoryQuery } from './category/queries';
 import { BaseSchemaCategory, MutationSchemaCategory, QuerySchemaCategory, UnionSchemaCategory } from './category/schema';
@@ -39,6 +39,9 @@ const Mutation = {
 const Query = {
   blog: BlogQuery,
   blogs: BlogsQuery,
+  blogsAmount,
+  blogsLastTwo,
+  blogsWeek,
   categories: CategoriesQuery,
   category: CategoryQuery,
   image: ImageQuery,
@@ -78,7 +81,9 @@ const schemas = [
 
 const Union = {
   BlogPayload,
+  BlogsAmountPayload,
   BlogsPayload,
+  BlogsWeekPayload,
   CategoriesPayload,
   CategoryPayload,
   ImagePayload,
