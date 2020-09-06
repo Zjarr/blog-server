@@ -39,7 +39,7 @@ export const QuerySchemaBlog = gql`
     blog(blog: GetBlogInput!): BlogPayload!
     blogs(blogs: GetBlogsInput!): BlogsPayload!
     blogsAmount: BlogsAmountPayload!
-    blogsLastTwo(blog: GetBlogsLastTwoInput!): BlogsPayload!
+    blogsLastTwo(blogs: GetBlogsLastTwoInput!): BlogsPayload!
     blogsWeek: BlogsWeekPayload!
   }
 `;

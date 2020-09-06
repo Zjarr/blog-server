@@ -23,7 +23,7 @@ export interface IBlogSuccess {
 
 export interface IBlogsSuccess {
   blogs: IBlog[];
-  pagination: IPagination;
+  pagination?: IPagination;
 }
 
 export interface IBlogsWeekSuccess {
@@ -55,7 +55,7 @@ export const UnionSchemaBlog = gql`
 
   type BlogsSuccess {
     blogs: [ Blog ]
-    pagination: Pagination!
+    pagination: Pagination
   }
 
   type BlogsWeekSuccess {
