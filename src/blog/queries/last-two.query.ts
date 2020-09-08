@@ -1,5 +1,3 @@
-import { Document, PaginateResult } from 'mongoose';
-
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { isAuthorized } from '../../utils/functions';
@@ -33,9 +31,9 @@ export const blogsLastTwo = async (_parent: object, args: { blogs: IGetBlogsLast
   }
 
   const searchQuery: ISearchQuery = createSearchQuery(blogs);
-  const blogsFound: PaginateResult<IBlog & Document> = await BlogModel.paginate(searchQuery, { sort: { updated: -2 }, limit: 1 });
+  const blogsFound: IBlog[] = await BlogModel.find(searchQuery).sort({ updated: -1 }).limit(2);
 
   return {
-    blogs: blogsFound.docs
+    blogs: blogsFound
   };
 };
