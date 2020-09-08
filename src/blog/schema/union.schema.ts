@@ -4,13 +4,13 @@ import { IPagination } from '../../pagination/schema';
 
 import { IBlog } from './blog.schema';
 
-interface IBlogsReport {
-  day: string;
-  blogs: IBlog[];
-}
-
 interface IBlogsCount {
   count: number;
+}
+
+export interface IBlogsReport {
+  day: string;
+  blogs: number;
 }
 
 export interface IBlogAmountSuccess {
@@ -38,7 +38,7 @@ export const UnionSchemaBlog = gql`
 
   type BlogsReport {
     day: String!
-    blogs: [ Blog ]
+    blogs: Int!
   }
 
   type BlogsCount {
