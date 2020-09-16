@@ -9,7 +9,7 @@ import { BlogModel } from '../model';
 import { IBlog, IBlogsReport, IBlogsWeekSuccess } from '../schema';
 
 interface ISearchQuery {
-  updated: {
+  created: {
     $gte: Date
   }
 }
@@ -39,7 +39,7 @@ const createSearchQuery = (): ISearchQuery => {
   const lastWeekDayDate = Moment().utc().subtract(7, 'd').format(DEFAULT_DATE_FORMAT);
 
   return {
-    updated: {
+    created: {
       $gte: new Date(lastWeekDayDate)
     }
   };
