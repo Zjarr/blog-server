@@ -26,5 +26,6 @@ export const QuerySchemaImage = gql`
   extend type Query {
     image(image: GetImageInput!): ImagePayload!
     images(images: GetImagesInput!): ImagesPayload!
+    imagesAmount: ImagesAmountPayload!
   }
 `;

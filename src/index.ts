@@ -14,9 +14,9 @@ import { context } from './context';
 import { BaseSchemaError } from './error/schema';
 import { BaseSchemaGlobal } from './global/schema';
 import { image as ImageMutation } from './image/mutations';
-import { image as ImageQuery, images as ImagesQuery } from './image/queries';
+import { image as ImageQuery, images as ImagesQuery, imagesAmount } from './image/queries';
 import { BaseSchemaImage, MutationSchemaImage, QuerySchemaImage, UnionSchemaImage } from './image/schema';
-import { ImagePayload, ImagesPayload } from './image/union';
+import { ImagePayload, ImagesAmountPayload, ImagesPayload } from './image/union';
 import { BaseSchemaPagination } from './pagination/schema';
 import { BaseSchemaSocial } from './social/schema';
 import { BaseSchemaSource } from './source/schema';
@@ -46,6 +46,7 @@ const Query = {
   category: CategoryQuery,
   image: ImageQuery,
   images: ImagesQuery,
+  imagesAmount,
   system: SystemQuery,
   user: UserQuery
 };
@@ -87,6 +88,7 @@ const Union = {
   CategoriesPayload,
   CategoryPayload,
   ImagePayload,
+  ImagesAmountPayload,
   ImagesPayload,
   LoginPayload,
   UserPayload
