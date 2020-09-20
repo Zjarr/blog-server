@@ -20,8 +20,7 @@ const initServer = (): Server => {
   };
 
   const cors: CorsOptions = {
-    origin: Env.CLIENT,
-    credentials: true
+    origin: Env.CLIENT
   };
 
   server.applyMiddleware({ app, bodyParserConfig, cors });
