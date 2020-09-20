@@ -21,7 +21,7 @@ const createWeekBlogsReportArray = (): IBlogsReport[] => {
   return blogsReport.map(() => {
     day = addDays(day, 1);
 
-    return { day: format(day, 'EEE'), blogs: 0 };
+    return { day: format(day, 'EEE dd'), blogs: 0 };
   });
 };
 
@@ -29,7 +29,7 @@ const updateBlogsReportArray = (blogs: IBlog[]): IBlogsReport[] => {
   const blogsReport = createWeekBlogsReportArray();
 
   blogs.forEach((blog) => {
-    const blogDay = format(new Date(blog.created), 'EEE');
+    const blogDay = format(new Date(blog.created), 'EEE dd');
 
     blogsReport.find((blog) => blog.day === blogDay)!.blogs++;
   });
