@@ -7,10 +7,17 @@ export interface IContext {
   session: IUser | null;
 }
 
-export const context = (ctx: { req: Request }): IContext => {
-  const { req } = ctx;
+const getToken = (authorization?: string): string => {
+  if (!authorization) return '';
 
-  const session = verifyJWT(req.cookies.authorization);
+  return authorization.split(' ')[1];
+};
+
+export const context = (ctx: { req: Request }): IContext => {
+  const { req: { headers: { authorization } } } = ctx;
+  const token = getToken(authorization);
+
+  const session = verifyJWT(token);
 
   return {
     session

@@ -1,5 +1,4 @@
 import { ApolloServer, CorsOptions, OptionsJson } from 'apollo-server-express';
-import CookieParser from 'cookie-parser';
 import Express from 'express';
 import { Server } from 'http';
 
@@ -13,7 +12,6 @@ import { config } from './src';
  */
 const initServer = (): Server => {
   const server = new ApolloServer({ ...config });
-  const cookieParser = CookieParser();
   const PORT = Env.PORT;
   const app = Express();
 
@@ -25,8 +23,6 @@ const initServer = (): Server => {
     origin: Env.CLIENT,
     credentials: true
   };
-
-  app.use(cookieParser);
 
   server.applyMiddleware({ app, bodyParserConfig, cors });
 
