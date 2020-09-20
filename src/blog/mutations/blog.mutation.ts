@@ -1,9 +1,7 @@
-import Moment from 'moment';
-
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { isAuthorized } from '../../utils/functions';
-import { conflict, DEFAULT_DATE_FORMAT, serverError, unauthorized } from '../../utils/values';
+import { conflict, serverError, unauthorized } from '../../utils/values';
 
 import { BlogModel } from '../model';
 import { IBlog, IBlogInput, IBlogSuccess } from '../schema';
@@ -24,7 +22,7 @@ export const blog = async (_parent: object, args: { blog: IBlogInput }, ctx: ICo
       return conflict('Already exists a blog with the provided slug.');
     }
 
-    const now = new Date(Moment().utc().format(DEFAULT_DATE_FORMAT));
+    const now = new Date();
     const slug = blog.slug.trim().toLowerCase();
     let blogResult: IBlog | null;
 

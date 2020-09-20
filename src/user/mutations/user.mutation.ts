@@ -1,12 +1,11 @@
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
-import Moment from 'moment';
 
 import { AdminAPI, uploadImage, usersUploadOptions } from '../../../cloud';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { encrypt, getImageUnique, isAuthorized } from '../../utils/functions';
-import { DEFAULT_DATE_FORMAT, serverError, unauthorized } from '../../utils/values';
+import { serverError, unauthorized } from '../../utils/values';
 
 import { UserModel } from '../model';
 import { IUser, IUserInput, IUserSuccess } from '../schema';
@@ -39,7 +38,7 @@ export const user = async (_parent: object, args: { user: IUserInput }, ctx: ICo
     if (user._id) {
       userResult = await UserModel.findByIdAndUpdate(user._id, { ...user }, { new: true });
     } else {
-      const created = new Date(Moment().utc().format(DEFAULT_DATE_FORMAT));
+      const created = new Date();
 
       user.password = encrypt(user.password!);
       userResult = await UserModel.create({ ...user, created });

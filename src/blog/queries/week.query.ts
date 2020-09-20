@@ -1,9 +1,9 @@
-import Moment from 'moment';
+import { addDays, format, subDays } from 'date-fns';
 
 import { IContext } from '../../context';
 import { IError } from '../../error/schema';
 import { isAuthorized } from '../../utils/functions';
-import { DEFAULT_DATE_FORMAT, unauthorized } from '../../utils/values';
+import { unauthorized } from '../../utils/values';
 
 import { BlogModel } from '../model';
 import { IBlog, IBlogsReport, IBlogsWeekSuccess } from '../schema';
@@ -16,10 +16,12 @@ interface ISearchQuery {
 
 const createWeekBlogsReportArray = (): IBlogsReport[] => {
   const blogsReport: IBlogsReport[] = Array.apply(null, new Array(7)) as IBlogsReport[];
-  const sevenDaysAgoDate = Moment().utc().subtract(7, 'd');
+  let day: Date = subDays(new Date(), 7);
 
   return blogsReport.map(() => {
-    return { day: sevenDaysAgoDate.add(1, 'd').format('ddd'), blogs: 0 };
+    day = addDays(day, 1);
+
+    return { day: format(day, 'EEE'), blogs: 0 };
   });
 };
 
@@ -27,7 +29,7 @@ const updateBlogsReportArray = (blogs: IBlog[]): IBlogsReport[] => {
   const blogsReport = createWeekBlogsReportArray();
 
   blogs.forEach((blog) => {
-    const blogDay = Moment(blog.updated, DEFAULT_DATE_FORMAT).format('ddd');
+    const blogDay = format(new Date(blog.created), 'EEE');
 
     blogsReport.find((blog) => blog.day === blogDay)!.blogs++;
   });
@@ -36,7 +38,7 @@ const updateBlogsReportArray = (blogs: IBlog[]): IBlogsReport[] => {
 };
 
 const createSearchQuery = (): ISearchQuery => {
-  const lastWeekDayDate = Moment().utc().subtract(7, 'd').format(DEFAULT_DATE_FORMAT);
+  const lastWeekDayDate = subDays(new Date(), 7);
 
   return {
     created: {
