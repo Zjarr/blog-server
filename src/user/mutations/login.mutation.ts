@@ -18,7 +18,7 @@ export const login = async (_parent: object, args: { user: IUserLoginInput }): P
     const passwordMatch = decrypt(user.password, userFound.password!);
 
     if (!passwordMatch) {
-      return forbidden('Password does not match.');
+      return forbidden('Incorrect user/password combination.');
     }
 
     const token: string = createJWT(userFound._id!);
