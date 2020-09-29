@@ -7,6 +7,7 @@ export interface IBlog {
   active: boolean;
   body: string;
   categories?: string[];
+  categoriesString?: string;
   created: Date;
   description: string;
   image: string;
@@ -22,6 +23,7 @@ export const BaseSchemaBlog = gql`
     active: Boolean!
     body: String!
     categories: [ String ]
+    categoriesString: String
     created: Date!
     description: String!
     image: String!
