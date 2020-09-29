@@ -1,8 +1,9 @@
 import { Document, PaginateResult } from 'mongoose';
-
+import { CategoryModel } from '../../category/model';
+import { ICategory } from '../../category/schema';
 import { IError } from '../../error/schema';
 import { IPagination } from '../../pagination/schema';
-import { paginationResult } from '../../utils/functions';
+import { mapCategories, paginationResult } from '../../utils/functions';
 import { serverError } from '../../utils/values';
 
 import { BlogModel } from '../model';
@@ -45,10 +46,12 @@ export const blogs = async (_parent: object, args: { blogs: IGetBlogsInput }): P
     const { blogs } = args;
     const searchQuery: ISearchQuery = createSearchQuery(blogs);
     const blogsFound: PaginateResult<IBlog & Document> = await BlogModel.paginate(searchQuery, { ...blogs.pagination });
+    const categoriesFound: ICategory[] = await CategoryModel.find({ active: true });
+    const blogsResponse: IBlog[] = mapCategories(blogsFound.docs, categoriesFound);
     const pagination: IPagination = paginationResult(blogsFound);
 
     return {
-      blogs: blogsFound.docs,
+      blogs: blogsResponse,
       pagination
     };
   } catch (error) {
