@@ -11,8 +11,6 @@ const mongoURL = `${Env.DB_PROTOCOL}://${Env.DB_USERNAME}:${Env.DB_PASSWORD}@${E
 /**
  * MongoDB connection options
  */
-Mongoose.Promise = global.Promise;
-
 const connection = Mongoose.connection;
 const options = {
   useCreateIndex: true,
